@@ -68,6 +68,13 @@ defmodule HouseWeb.Router do
       on_mount: [{HouseWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/warehouses", WarehouseLive.Index, :index
+      live "/warehouses/new", WarehouseLive.Index, :new
+      live "/warehouses/:id/edit", WarehouseLive.Index, :edit
+
+      live "/warehouses/:id", WarehouseLive.Show, :show
+      live "/warehouses/:id/show/edit", WarehouseLive.Show, :edit
     end
   end
 
