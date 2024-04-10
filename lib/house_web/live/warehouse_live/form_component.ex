@@ -68,7 +68,10 @@ defmodule HouseWeb.WarehouseLive.FormComponent do
   end
 
   defp save_warehouse(socket, :new, warehouse_params) do
-    case Warehouses.create_warehouse(warehouse_params) do
+    params = warehouse_params
+    |> Map.put("owner_id", socket.assigns.current_user.id)
+    # warehouse_params = Map.put(warehouse_params, :owner_id, socket.assigns.current_user.id)
+    case Warehouses.create_warehouse(params) do
       {:ok, warehouse} ->
         notify_parent({:saved, warehouse})
 

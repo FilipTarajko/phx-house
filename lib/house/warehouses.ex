@@ -35,7 +35,7 @@ defmodule House.Warehouses do
       ** (Ecto.NoResultsError)
 
   """
-  def get_warehouse!(id), do: Repo.get!(Warehouse, id)
+  def get_warehouse!(id), do: Repo.get!(Warehouse, id) |> Repo.preload(:owner)
 
   @doc """
   Creates a warehouse.

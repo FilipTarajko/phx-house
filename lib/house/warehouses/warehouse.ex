@@ -4,6 +4,7 @@ defmodule House.Warehouses.Warehouse do
 
   schema "warehouses" do
     field :name, :string
+    belongs_to :owner, House.Accounts.User
 
     timestamps(type: :utc_datetime)
   end
@@ -11,7 +12,7 @@ defmodule House.Warehouses.Warehouse do
   @doc false
   def changeset(warehouse, attrs) do
     warehouse
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :owner_id])
+    |> validate_required([:name, :owner_id])
   end
 end

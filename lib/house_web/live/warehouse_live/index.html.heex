@@ -33,6 +33,7 @@
   <.live_component
     module={HouseWeb.WarehouseLive.FormComponent}
     id={@warehouse.id || :new}
+    current_user={@current_user}
     title={@page_title}
     action={@live_action}
     warehouse={@warehouse}

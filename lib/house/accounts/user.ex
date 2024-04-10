@@ -7,6 +7,7 @@ defmodule House.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    has_many :warehouses, House.Warehouses.Warehouse, foreign_key: :owner_id
 
     timestamps(type: :utc_datetime)
   end

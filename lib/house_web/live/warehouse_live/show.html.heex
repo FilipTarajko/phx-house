@@ -10,6 +10,7 @@
 
 <.list>
   <:item title="Name"><%= @warehouse.name %></:item>
+  <:item title="Owner"><%= @warehouse.owner.email %></:item>
 </.list>
 
 <.back navigate={~p"/warehouses"}>Back to warehouses</.back>
