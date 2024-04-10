@@ -17,4 +17,22 @@ defmodule House.WarehousesFixtures do
 
     warehouse
   end
+
+  @doc """
+  Generate a product.
+  """
+  def product_fixture(attrs \\ %{}) do
+    {:ok, product} =
+      attrs
+      |> Enum.into(%{
+        danger_quantity: 42,
+        description: "some description",
+        name: "some name",
+        quantity: 42,
+        safe_quantity: 42
+      })
+      |> House.Warehouses.create_product()
+
+    product
+  end
 end
