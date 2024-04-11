@@ -12,7 +12,11 @@
   id="products"
   rows={@streams.products}
 >
-  <:col :let={{_id, product}} label="Name"><%= product.name %></:col>
+  <:col :let={{_id, product}} label="Name">
+    <span class={get_product_color(product)}>
+      <%= product.name %>
+    </span>
+  </:col>
   <:col :let={{_id, product}} label="Quantity">
     <.button phx-click="dec" phx-value-product_id={product.id}>
     -

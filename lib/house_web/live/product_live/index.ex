@@ -4,6 +4,14 @@ defmodule HouseWeb.ProductLive.Index do
   alias House.Warehouses
   alias House.Warehouses.Product
 
+  def get_product_color(product) do
+    case product.quantity do
+      q when q < product.danger_quantity and product.danger_quantity != nil -> "text-red-500"
+      q when q < product.safe_quantity and product.safe_quantity != nil -> "text-yellow-500"
+      _ -> "text-green-500"
+    end
+  end
+
   @impl true
   def mount(params, _session, socket) do
     socket = socket
