@@ -72,7 +72,9 @@ defmodule HouseWeb.ProductLive.FormComponent do
   end
 
   defp save_product(socket, :new, product_params) do
-    case Warehouses.create_product(product_params) do
+    params = product_params
+    |> Map.put("warehouse_id", socket.assigns.warehouse_id)
+    case Warehouses.create_product(params) do
       {:ok, product} ->
         notify_parent({:saved, product})
 

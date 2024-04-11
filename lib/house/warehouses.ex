@@ -113,8 +113,11 @@ defmodule House.Warehouses do
       [%Product{}, ...]
 
   """
-  def list_products do
-    Repo.all(Product)
+  def list_products(warehouse_id) do
+    Repo.all(
+      from p in Product,
+      where: p.warehouse_id == ^warehouse_id
+    )
   end
 
   @doc """

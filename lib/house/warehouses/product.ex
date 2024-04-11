@@ -8,6 +8,7 @@ defmodule House.Warehouses.Product do
     field :quantity, :integer, default: 0
     field :danger_quantity, :integer
     field :safe_quantity, :integer
+    belongs_to :warehouse, House.Warehouses.Warehouse
 
     timestamps(type: :utc_datetime)
   end
@@ -15,7 +16,7 @@ defmodule House.Warehouses.Product do
   @doc false
   def changeset(product, attrs) do
     product
-    |> cast(attrs, [:name, :quantity, :danger_quantity, :safe_quantity, :description])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :quantity, :danger_quantity, :safe_quantity, :description, :warehouse_id])
+    |> validate_required([:name, :warehouse_id])
   end
 end

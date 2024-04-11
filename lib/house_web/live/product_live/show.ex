@@ -4,7 +4,8 @@ defmodule HouseWeb.ProductLive.Show do
   alias House.Warehouses
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    socket = socket |> assign(:warehouseId, params["warehouseId"])
     {:ok, socket}
   end
 
