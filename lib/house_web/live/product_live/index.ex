@@ -47,4 +47,20 @@ defmodule HouseWeb.ProductLive.Index do
 
     {:noreply, stream_delete(socket, :products, product)}
   end
+
+  def handle_event("inc", %{"product_id" => product_id}, socket) do
+    product = Warehouses.get_product!(product_id)
+    {:ok, product} = Warehouses.update_product(product, %{quantity: product.quantity + 1})
+
+    # update the product in the live view
+    {:noreply, stream_insert(socket, :products, product)}
+  end
+
+  def handle_event("dec", %{"product_id" => product_id}, socket) do
+    product = Warehouses.get_product!(product_id)
+    {:ok, product} = Warehouses.update_product(product, %{quantity: product.quantity - 1})
+
+    # update the product in the live view
+    {:noreply, stream_insert(socket, :products, product)}
+  end
 end

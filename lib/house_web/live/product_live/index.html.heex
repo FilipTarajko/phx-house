@@ -13,7 +13,15 @@
   row_click={fn {_id, product} -> JS.navigate(~p"/warehouses/#{@warehouseId}/products/#{product}") end}
 >
   <:col :let={{_id, product}} label="Name"><%= product.name %></:col>
-  <:col :let={{_id, product}} label="Quantity"><%= product.quantity %></:col>
+  <:col :let={{_id, product}} label="Quantity">
+    <.button phx-click="dec" phx-value-product_id={product.id}>
+    -
+    </.button>
+    <%= product.quantity %>
+    <.button phx-click="inc" phx-value-product_id={product.id}>
+    +
+    </.button>
+  </:col>
   <:col :let={{_id, product}} label="Danger quantity"><%= product.danger_quantity %></:col>
   <:col :let={{_id, product}} label="Safe quantity"><%= product.safe_quantity %></:col>
   <:col :let={{_id, product}} label="Description"><%= product.description %></:col>
