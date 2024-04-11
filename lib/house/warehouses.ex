@@ -149,9 +149,16 @@ defmodule House.Warehouses do
 
   """
   def create_product(attrs \\ %{}) do
-    %Product{}
+    product_changeset = %Product{}
     |> Product.changeset(attrs)
-    |> Repo.insert()
+    result = Repo.insert(product_changeset)
+
+    case result do
+      {:ok, product} -> Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{product.warehouse_id}_products", %{inserted_product: product})
+      _ -> nil
+    end
+
+    result
   end
 
   @doc """
@@ -192,7 +199,11 @@ defmodule House.Warehouses do
 
   """
   def delete_product(%Product{} = product) do
-    Repo.delete(product)
+    result = Repo.delete(product)
+
+    Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{product.warehouse_id}_products", %{deleted_product: product})
+
+    result
   end
 
   @doc """
