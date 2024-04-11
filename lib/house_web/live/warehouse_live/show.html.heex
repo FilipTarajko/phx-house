@@ -1,5 +1,5 @@
 <.header>
-  Warehouse <%= @warehouse.id %>
+  Warehouse <%= @warehouse.name %>
   <:subtitle>This is a warehouse record from your database.</:subtitle>
   <:actions>
     <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
@@ -18,7 +18,7 @@
     class="mt-20 text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
     navigate={"#{@warehouse.id}/products"}
     >
-      Products of warehouse <%= @warehouse.id %>
+      Products of warehouse <%= @warehouse.name %>
   </.link>
 </div>
 <.back navigate={~p"/warehouses"}>Back to warehouses</.back>

@@ -1,5 +1,5 @@
 <.header>
-  Product <%= @product.id %>
+  Product <%= @product.name %> (in <%= @warehouseName %>)
   <:subtitle>This is a product record from your database.</:subtitle>
   <:actions>
     <.link patch={~p"/warehouses/#{@warehouseId}/products/#{@product}/show/edit"} phx-click={JS.push_focus()}>
@@ -16,7 +16,7 @@
   <:item title="Description"><%= @product.description %></:item>
 </.list>
 
-<.back navigate={~p"/warehouses/#{@warehouseId}/products"}>Back to products</.back>
+<.back navigate={~p"/warehouses/#{@warehouseId}/products"}>Back to products (in <%= @warehouseName %>)</.back>
 
 <.modal :if={@live_action == :edit} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouseId}/products/#{@product}")}>
   <.live_component

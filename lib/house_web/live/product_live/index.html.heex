@@ -1,5 +1,5 @@
 <.header>
-  Listing Products
+  Products (in <%= @warehouseName %>)
   <:actions>
     <.link patch={~p"/warehouses/#{@warehouseId}/products/new"}>
       <.button>New Product</.button>
@@ -32,6 +32,8 @@
     </.link>
   </:action>
 </.table>
+
+<.back navigate={~p"/warehouses/#{@warehouseId}"}>Back to warehouse (<%= @warehouseName %>)</.back>
 
 <.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouseId}/products")}>
   <.live_component

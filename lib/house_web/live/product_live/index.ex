@@ -6,7 +6,9 @@ defmodule HouseWeb.ProductLive.Index do
 
   @impl true
   def mount(params, _session, socket) do
-    socket = socket |> assign(:warehouseId, params["warehouseId"])
+    socket = socket
+    |> assign(:warehouseId, params["warehouseId"])
+    |> assign(:warehouseName, Warehouses.get_warehouse!(params["warehouseId"]).name)
     {:ok, stream(socket, :products, Warehouses.list_products(params["warehouseId"]))}
   end
 
