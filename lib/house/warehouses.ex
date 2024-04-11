@@ -167,9 +167,16 @@ defmodule House.Warehouses do
 
   """
   def update_product(%Product{} = product, attrs) do
-    product
-    |> Product.changeset(attrs)
-    |> Repo.update()
+    product_changeset = product
+      |> Product.changeset(attrs)
+    result = Repo.update(product_changeset)
+
+    case result do
+      {:ok, product} -> Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{product.warehouse_id}_products", %{inserted_product: product})
+      _ -> nil
+    end
+
+    result
   end
 
   @doc """

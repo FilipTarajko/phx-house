@@ -7,10 +7,10 @@
   </:actions>
 </.header>
 
+<%!-- row_click={fn {_id, product} -> JS.navigate(~p"/warehouses/#{@warehouseId}/products/#{product}") end} --%>
 <.table
   id="products"
   rows={@streams.products}
-  row_click={fn {_id, product} -> JS.navigate(~p"/warehouses/#{@warehouseId}/products/#{product}") end}
 >
   <:col :let={{_id, product}} label="Name"><%= product.name %></:col>
   <:col :let={{_id, product}} label="Quantity">
@@ -26,9 +26,9 @@
   <:col :let={{_id, product}} label="Safe quantity"><%= product.safe_quantity %></:col>
   <:col :let={{_id, product}} label="Description"><%= product.description %></:col>
   <:action :let={{_id, product}}>
-    <div class="sr-only">
+    <%!-- <div class="sr-only">
       <.link navigate={~p"/warehouses/#{@warehouseId}/products/#{product}"}>Show</.link>
-    </div>
+    </div> --%>
     <.link patch={~p"/warehouses/#{@warehouseId}/products/#{product}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, product}}>
