@@ -35,4 +35,18 @@ defmodule House.WarehousesFixtures do
 
     product
   end
+
+  @doc """
+  Generate a member.
+  """
+  def member_fixture(attrs \\ %{}) do
+    {:ok, member} =
+      attrs
+      |> Enum.into(%{
+        is_admin: true
+      })
+      |> House.Warehouses.create_member()
+
+    member
+  end
 end

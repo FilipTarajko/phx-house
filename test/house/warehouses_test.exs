@@ -118,4 +118,58 @@ defmodule House.WarehousesTest do
       assert %Ecto.Changeset{} = Warehouses.change_product(product)
     end
   end
+
+  describe "members" do
+    alias House.Warehouses.Member
+
+    import House.WarehousesFixtures
+
+    @invalid_attrs %{is_admin: nil}
+
+    test "list_members/0 returns all members" do
+      member = member_fixture()
+      assert Warehouses.list_members() == [member]
+    end
+
+    test "get_member!/1 returns the member with given id" do
+      member = member_fixture()
+      assert Warehouses.get_member!(member.id) == member
+    end
+
+    test "create_member/1 with valid data creates a member" do
+      valid_attrs = %{is_admin: true}
+
+      assert {:ok, %Member{} = member} = Warehouses.create_member(valid_attrs)
+      assert member.is_admin == true
+    end
+
+    test "create_member/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Warehouses.create_member(@invalid_attrs)
+    end
+
+    test "update_member/2 with valid data updates the member" do
+      member = member_fixture()
+      update_attrs = %{is_admin: false}
+
+      assert {:ok, %Member{} = member} = Warehouses.update_member(member, update_attrs)
+      assert member.is_admin == false
+    end
+
+    test "update_member/2 with invalid data returns error changeset" do
+      member = member_fixture()
+      assert {:error, %Ecto.Changeset{}} = Warehouses.update_member(member, @invalid_attrs)
+      assert member == Warehouses.get_member!(member.id)
+    end
+
+    test "delete_member/1 deletes the member" do
+      member = member_fixture()
+      assert {:ok, %Member{}} = Warehouses.delete_member(member)
+      assert_raise Ecto.NoResultsError, fn -> Warehouses.get_member!(member.id) end
+    end
+
+    test "change_member/1 returns a member changeset" do
+      member = member_fixture()
+      assert %Ecto.Changeset{} = Warehouses.change_member(member)
+    end
+  end
 end

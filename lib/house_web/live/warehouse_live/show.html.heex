@@ -11,7 +11,17 @@
 <.list>
   <:item title="Name"><%= @warehouse.name %></:item>
   <:item title="Owner"><%= @warehouse.owner.email %></:item>
+  <:item title="Users">
+    <%= for member <- @members do %>
+      <%= member.user.email %><br>
+    <% end %>
+  </:item>
 </.list>
+
+<div class="mt-12 flex flex-row items-end gap-2">
+  <.input name="email" type="email" value="" label="Email" />
+  <.button phx-click="invite" phx-value-email={"test@test.test"} phx-value-warehouse_id={@warehouse.id} phx-disable-with="Saving...">Add member</.button>
+</div>
 
 <div class="mt-12">
   <.link

@@ -13,7 +13,22 @@ defmodule HouseWeb.WarehouseLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:warehouse, Warehouses.get_warehouse!(id))}
+     |> assign(:warehouse, Warehouses.get_warehouse!(id))
+     |> assign(:members, Warehouses.list_members(id))
+    }
+  end
+
+  @impl true
+  def handle_event("invite", params, socket) do
+    user = House.Accounts.get_user_by_email(params["email"])
+    if !user do
+      {:noreply, socket |> put_flash(:error, "User not found")}
+    else
+      warehouse_id = params["warehouse_id"]
+      {:ok, _} = Warehouses.create_member(%{user_id: user.id, warehouse_id: warehouse_id, is_admin: false})
+      # {:noreply, stream_insert(socket, :members, user)}
+      {:noreply, socket |> put_flash(:info, "User invited")}
+    end
   end
 
   defp page_title(:show), do: "Show Warehouse"

@@ -84,6 +84,13 @@ defmodule HouseWeb.Router do
         live "/products/:id", ProductLive.Show, :show
         live "/products/:id/show/edit", ProductLive.Show, :edit
       end
+
+      live "/members", MemberLive.Index, :index
+      live "/members/new", MemberLive.Index, :new
+      live "/members/:id/edit", MemberLive.Index, :edit
+
+      live "/members/:id", MemberLive.Show, :show
+      live "/members/:id/show/edit", MemberLive.Show, :edit
     end
   end
 
