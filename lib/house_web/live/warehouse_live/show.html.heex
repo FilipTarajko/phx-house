@@ -11,10 +11,15 @@
 <.list>
   <:item title="Name"><%= @warehouse.name %></:item>
   <:item title="Owner"><%= @warehouse.owner.email %></:item>
-  <:item title="Users">
-    <%= for member <- @members do %>
-      <%= member.user.email %><br>
-    <% end %>
+  <:item title="Members">
+    <ul id="members" phx-update="stream">
+      <li
+        :for={{dom_id, member} <- @streams.members}
+        id={dom_id}
+      >
+        <%= member.user.email %>
+      </li>
+    </ul>
   </:item>
 </.list>
 
