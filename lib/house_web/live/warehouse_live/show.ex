@@ -5,7 +5,11 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   @impl true
   def mount(params, _session, socket) do
-    {:ok, stream(socket, :members, Warehouses.list_members(params["id"]))}
+    {:ok,
+      socket
+      |> stream(:members, Warehouses.list_members(params["id"]))
+      |> assign(invitation_form: to_form(%{"email" => ""}))
+    }
   end
 
   @impl true
@@ -18,18 +22,21 @@ defmodule HouseWeb.WarehouseLive.Show do
   end
 
   @impl true
-  def handle_event("invite", params, socket) do
-    user = House.Accounts.get_user_by_email(params["email"])
+  def handle_event("validate_invitation", %{"email" => email}, socket) do
+    {:noreply, assign(socket, invitation_form: to_form(%{"email" => email}))}
+  end
+
+  def handle_event("save_invitation", %{"email" => email}, socket) do
+    user = House.Accounts.get_user_by_email(email)
     if !user do
       {:noreply, socket |> put_flash(:error, "User not found")}
     else
-      warehouse_id = params["warehouse_id"]
-      {:ok, member} = Warehouses.create_member(%{user_id: user.id, warehouse_id: warehouse_id, is_admin: false})
+      {:ok, member} = Warehouses.create_member(%{user_id: user.id, warehouse_id: socket.assigns.warehouse.id, is_admin: false})
       {:noreply, stream_insert(socket, :members, member |> House.Repo.preload(:user))}
-      # {:noreply, socket |> put_flash(:info, "User invited")}
     end
   end
 
   defp page_title(:show), do: "Show Warehouse"
   defp page_title(:edit), do: "Edit Warehouse"
+
 end
