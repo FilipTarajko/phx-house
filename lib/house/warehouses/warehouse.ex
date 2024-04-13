@@ -6,7 +6,7 @@ defmodule House.Warehouses.Warehouse do
     field :name, :string
     belongs_to :owner, House.Accounts.User
     has_many :products, House.Warehouses.Product, foreign_key: :warehouse_id
-    has_many :members, House.Warehouses.Members, foreign_key: :warehouse_id
+    has_many :members, House.Warehouses.Member, foreign_key: :warehouse_id
 
     timestamps(type: :utc_datetime)
   end
