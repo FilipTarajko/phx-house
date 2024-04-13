@@ -31,8 +31,14 @@ defmodule HouseWeb.WarehouseLive.Show do
     if !user do
       {:noreply, socket |> put_flash(:error, "User not found")}
     else
-      {:ok, member} = Warehouses.create_member(%{user_id: user.id, warehouse_id: socket.assigns.warehouse.id, is_admin: false})
-      {:noreply, stream_insert(socket, :members, member |> House.Repo.preload(:user))}
+      warehouse_id = socket.assigns.warehouse.id
+      is_user_already_a_member = Warehouses.list_members(warehouse_id) |> Enum.any?(fn member -> member.user_id == user.id end)
+      if is_user_already_a_member do
+        {:noreply, socket |> put_flash(:error, "User is already a member")}
+      else
+        {:ok, member} = Warehouses.create_member(%{user_id: user.id, warehouse_id: warehouse_id, is_admin: false})
+        {:noreply, stream_insert(socket, :members, member |> House.Repo.preload(:user))}
+      end
     end
   end
 
