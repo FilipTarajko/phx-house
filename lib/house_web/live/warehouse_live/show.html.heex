@@ -1,6 +1,11 @@
 <.header>
   Warehouse <%= @warehouse.name %>
-  <:subtitle>This is a warehouse record from your database.</:subtitle>
+  <:subtitle>
+    <%= "Your id: #{@current_user.id}," %>
+    <%= "owner: #{@is_owner}," %>
+    <%= "admin: #{@is_admin}," %>
+    <%= "member: #{@is_member}" %>
+  </:subtitle>
   <:actions>
     <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit warehouse</.button>

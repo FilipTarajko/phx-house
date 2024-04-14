@@ -14,10 +14,14 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    warehouse = Warehouses.get_warehouse!(id)
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:warehouse, Warehouses.get_warehouse!(id))
+     |> assign(:warehouse, warehouse)
+     |> assign(:is_owner, warehouse.owner_id == socket.assigns.current_user.id)
+     |> assign(:is_admin, Warehouses.is_admin?(warehouse.id, socket.assigns.current_user.id))
+     |> assign(:is_member, Warehouses.is_member?(warehouse.id, socket.assigns.current_user.id))
     }
   end
 

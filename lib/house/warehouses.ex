@@ -317,4 +317,17 @@ defmodule House.Warehouses do
   def change_member(%Member{} = member, attrs \\ %{}) do
     Member.changeset(member, attrs)
   end
+
+
+  def is_admin?(warehouse_id, user_id) do
+    Repo.one(
+      from m in Member,
+      where: m.warehouse_id == ^warehouse_id and m.user_id == ^user_id and m.is_admin == true) != nil
+  end
+
+  def is_member?(warehouse_id, user_id) do
+    Repo.one(
+      from m in Member,
+      where: m.warehouse_id == ^warehouse_id and m.user_id == ^user_id) != nil
+  end
 end
