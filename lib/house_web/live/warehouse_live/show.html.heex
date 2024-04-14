@@ -12,14 +12,21 @@
   <:item title="Name"><%= @warehouse.name %></:item>
   <:item title="Owner"><%= @warehouse.owner.email %></:item>
   <:item title="Members">
-    <ul id="members" phx-update="stream">
-      <li
-        :for={{dom_id, member} <- @streams.members}
-        id={dom_id}
+    <div
+      class="grid grid-cols-2 gap-12"
+      id={dom_id}
+      phx-update="stream"
+      :for={{dom_id, member} <- @streams.members}
       >
-        <%= member.user.email %>
-      </li>
-    </ul>
+        <div>
+          <%= member.user.email %>
+        </div>
+        <div>
+          <%= if member.is_admin do %>
+            admin
+          <% end %>
+        </div>
+    </div>
   </:item>
 </.list>
 
