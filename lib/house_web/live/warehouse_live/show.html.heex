@@ -17,21 +17,23 @@
   <:item title="Name"><%= @warehouse.name %></:item>
   <:item title="Owner"><%= @warehouse.owner.email %></:item>
   <:item title="Members">
-    <div
-      class="grid grid-cols-2 gap-12"
-      id={dom_id}
-      phx-update="stream"
-      :for={{dom_id, member} <- @streams.members}
-      >
-        <div>
-          <%= member.user.email %>
-        </div>
-        <div>
-          <%= if member.is_admin do %>
-            admin
-          <% end %>
-        </div>
-    </div>
+    <table>
+      <tbody id="members" phx-update="stream">
+        <tr
+          id={dom_id}
+          :for={{dom_id, member} <- @streams.members}
+        >
+          <td>
+            <%= member.user.email %>
+          </td>
+          <td class="pl-4">
+            <%= if member.is_admin do %>
+              admin
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </:item>
 </.list>
 
