@@ -49,6 +49,27 @@ defmodule HouseWeb.WarehouseLive.Show do
     end
   end
 
+  def handle_event("promote", %{"member_id" => member_id}, socket) do
+    cond do
+      !socket.assigns.is_owner ->
+        {:noreply, socket}
+      true ->
+        member = Warehouses.get_member!(member_id)
+        {:ok, member} = Warehouses.update_member(member, %{is_admin: true})
+        {:noreply, stream_insert(socket, :members, member |> House.Repo.preload(:user))}
+    end
+  end
+  def handle_event("demote", %{"member_id" => member_id}, socket) do
+    cond do
+      !socket.assigns.is_owner ->
+        {:noreply, socket}
+      true ->
+        member = Warehouses.get_member!(member_id)
+        {:ok, member} = Warehouses.update_member(member, %{is_admin: false})
+        {:noreply, stream_insert(socket, :members, member |> House.Repo.preload(:user))}
+    end
+  end
+
   defp page_title(:show), do: "Show Warehouse"
   defp page_title(:edit), do: "Edit Warehouse"
 

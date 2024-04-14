@@ -31,6 +31,19 @@
               admin
             <% end %>
           </td>
+          <%= if @is_owner do %>
+            <td class="pl-4">
+                <%= if member.is_admin do %>
+                  <.button phx-click="demote" phx-value-member_id={member.id}>
+                      demote
+                  </.button>
+                <% else %>
+                  <.button phx-click="promote" phx-value-member_id={member.id}>
+                      promote
+                  </.button>
+                <% end %>
+            </td>
+          <% end %>
         </tr>
       </tbody>
     </table>
