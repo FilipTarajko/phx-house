@@ -37,10 +37,12 @@
   </:item>
 </.list>
 
-<.form for={@invitation_form} phx-change="validate_invitation" phx-submit="save_invitation" class="mt-12 flex flex-row items-end gap-2">
-  <.input name="email" type="email" field={@invitation_form[:email]} value="" label="Email" />
-  <.button phx-disable-with="Saving...">Add member</.button>
-</.form>
+<%= if @is_admin do %>
+  <.form for={@invitation_form} phx-change="validate_invitation" phx-submit="save_invitation" class="mt-12 flex flex-row items-end gap-2">
+    <.input name="email" type="email" field={@invitation_form[:email]} value="" label="Email" />
+    <.button phx-disable-with="Saving...">Add member</.button>
+  </.form>
+<% end %>
 
 <div class="mt-12">
   <.link

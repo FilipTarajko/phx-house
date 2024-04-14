@@ -32,17 +32,20 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   def handle_event("save_invitation", %{"email" => email}, socket) do
     user = House.Accounts.get_user_by_email(email)
-    if !user do
-      {:noreply, socket |> put_flash(:error, "User not found")}
-    else
-      warehouse_id = socket.assigns.warehouse.id
-      is_user_already_a_member = Warehouses.list_members(warehouse_id) |> Enum.any?(fn member -> member.user_id == user.id end)
-      if is_user_already_a_member do
+
+    cond do
+      !socket.assigns.is_admin ->
+        {:noreply, socket}
+
+      !user ->
+        {:noreply, socket |> put_flash(:error, "User not found")}
+
+      Warehouses.is_member?(socket.assigns.warehouse.id, user.id) ->
         {:noreply, socket |> put_flash(:error, "User is already a member")}
-      else
-        {:ok, member} = Warehouses.create_member(%{user_id: user.id, warehouse_id: warehouse_id, is_admin: false})
+
+      true ->
+        {:ok, member} = Warehouses.create_member(%{user_id: user.id, warehouse_id: socket.assigns.warehouse.id, is_admin: false})
         {:noreply, stream_insert(socket, :members, member |> House.Repo.preload(:user))}
-      end
     end
   end
 
