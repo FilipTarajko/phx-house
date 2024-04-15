@@ -266,9 +266,17 @@ defmodule House.Warehouses do
 
   """
   def create_member(attrs \\ %{}) do
-    %Member{}
+    member_changeset = %Member{}
     |> Member.changeset(attrs)
-    |> Repo.insert()
+
+    result = Repo.insert(member_changeset)
+
+    case result do
+      {:ok, member} -> Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{inserted_member: member |> Repo.preload(:user)})
+      _ -> nil
+    end
+
+    result
   end
 
   @doc """
@@ -284,9 +292,17 @@ defmodule House.Warehouses do
 
   """
   def update_member(%Member{} = member, attrs) do
-    member
+    member_changeset = member
     |> Member.changeset(attrs)
-    |> Repo.update()
+
+    result = Repo.update(member_changeset)
+
+    case result do
+      {:ok, member} -> Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{inserted_member: member |> Repo.preload(:user)})
+      _ -> nil
+    end
+
+    result
   end
 
   @doc """
@@ -302,7 +318,11 @@ defmodule House.Warehouses do
 
   """
   def delete_member(%Member{} = member) do
-    Repo.delete(member)
+    result = Repo.delete(member)
+
+    Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{deleted_member: member})
+
+    result
   end
 
   @doc """

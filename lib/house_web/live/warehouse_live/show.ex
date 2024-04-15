@@ -5,11 +5,23 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   @impl true
   def mount(params, _session, socket) do
-    {:ok,
-      socket
+    socket = socket
       |> stream(:members, Warehouses.list_members(params["id"]))
       |> assign(invitation_form: to_form(%{"email" => ""}))
-    }
+
+    if connected?(socket) do
+      Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}_members")
+    end
+
+    {:ok, socket}
+  end
+
+  @impl true
+  def handle_info(%{inserted_member: member}, socket) do
+    {:noreply, stream_insert(socket, :members, member)}
+  end
+  def handle_info(%{deleted_member: member}, socket) do
+    {:noreply, stream_delete(socket, :members, member)}
   end
 
   @impl true
