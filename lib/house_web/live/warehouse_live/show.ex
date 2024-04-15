@@ -5,8 +5,13 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   @impl true
   def mount(params, _session, socket) do
+    members = Warehouses.list_members(params["id"])
+    |> Enum.sort_by(&(&1.user.email))
+    |> Enum.sort_by(&{&1.is_admin}, :desc)
+    |> Enum.sort_by(&(&1.user_id == Warehouses.get_warehouse!(params["id"]).owner_id), :desc)
+
     socket = socket
-      |> stream(:members, Warehouses.list_members(params["id"]))
+      |> stream(:members, members)
       |> assign(invitation_form: to_form(%{"email" => ""}))
 
     if connected?(socket) do
@@ -45,7 +50,7 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
-    warehouse = Warehouses.get_warehouse!(id)
+    warehouse = Warehouses.get_warehouse!(id) |> House.Repo.preload(:owner)
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
@@ -107,6 +112,14 @@ defmodule HouseWeb.WarehouseLive.Show do
         {:noreply, stream_delete(socket, :members, member)}
       true ->
         {:noreply, socket}
+    end
+  end
+
+  def get_members_role_text(member, warehouse) do
+    case {warehouse.owner.id, member.user_id, member.is_admin} do
+      {x, x, _} -> "owner"
+      {_, _, true} -> "admin"
+      _ -> "member"
     end
   end
 

@@ -29,9 +29,7 @@
             <%= member.user.email %>
           </td>
           <td class="pl-4">
-            <%= if member.is_admin do %>
-              admin
-            <% end %>
+            <%= get_members_role_text(member, @warehouse) %>
           </td>
           <%= if @is_owner do %>
             <td class="pl-4">
