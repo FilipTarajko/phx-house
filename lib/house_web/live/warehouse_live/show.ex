@@ -18,10 +18,29 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   @impl true
   def handle_info(%{inserted_member: member}, socket) do
-    {:noreply, stream_insert(socket, :members, member)}
+    if member.user_id == socket.assigns.current_user.id do
+      socket = socket
+        |> update_current_members_permission_booleans()
+        {:noreply, stream_insert(socket, :members, member)}
+    else
+      {:noreply, stream_insert(socket, :members, member)}
+    end
   end
   def handle_info(%{deleted_member: member}, socket) do
-    {:noreply, stream_delete(socket, :members, member)}
+    if member.user_id == socket.assigns.current_user.id do
+      socket = socket
+        |> update_current_members_permission_booleans()
+        {:noreply, stream_delete(socket, :members, member)}
+    else
+      {:noreply, stream_delete(socket, :members, member)}
+    end
+  end
+
+  def update_current_members_permission_booleans(socket) do
+    socket
+    |> assign(:is_owner, socket.assigns.warehouse.owner_id == socket.assigns.current_user.id)
+    |> assign(:is_admin, Warehouses.is_admin?(socket.assigns.warehouse.id, socket.assigns.current_user.id))
+    |> assign(:is_member, Warehouses.is_member?(socket.assigns.warehouse.id, socket.assigns.current_user.id))
   end
 
   @impl true
@@ -31,9 +50,7 @@ defmodule HouseWeb.WarehouseLive.Show do
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:warehouse, warehouse)
-     |> assign(:is_owner, warehouse.owner_id == socket.assigns.current_user.id)
-     |> assign(:is_admin, Warehouses.is_admin?(warehouse.id, socket.assigns.current_user.id))
-     |> assign(:is_member, Warehouses.is_member?(warehouse.id, socket.assigns.current_user.id))
+     |> update_current_members_permission_booleans()
     }
   end
 
