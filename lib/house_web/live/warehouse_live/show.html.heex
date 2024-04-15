@@ -8,7 +8,9 @@
   </:subtitle>
   <:actions>
     <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit warehouse</.button>
+      <.button
+        class={if !@is_owner, do: "bg-red-100"}
+      >Edit warehouse</.button>
     </.link>
   </:actions>
 </.header>
@@ -43,6 +45,21 @@
                   </.button>
                 <% end %>
             </td>
+          <% end %>
+          <%= if member.user.id == @current_user.id do %>
+            <td class="pl-4">
+              <.button class="bg-red-500" phx-click="kick" phx-value-member_id={member.id}>
+                leave
+              </.button>
+            </td>
+          <% else %>
+            <%= if @is_owner || @is_admin && !member.is_admin do %>
+              <td class="pl-4">
+                <.button class="bg-red-500" phx-click="kick" phx-value-member_id={member.id}>
+                  kick
+                </.button>
+              </td>
+            <% end %>
           <% end %>
         </tr>
       </tbody>

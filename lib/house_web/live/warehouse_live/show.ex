@@ -70,6 +70,17 @@ defmodule HouseWeb.WarehouseLive.Show do
     end
   end
 
+  def handle_event("kick", %{"member_id" => member_id}, socket) do
+    member = Warehouses.get_member!(member_id)
+    cond do
+      socket.assigns.is_owner || socket.assigns.is_admin && !member.is_admin || member.user_id == socket.assigns.current_user.id ->
+        {:ok, _} = Warehouses.delete_member(member)
+        {:noreply, stream_delete(socket, :members, member)}
+      true ->
+        {:noreply, socket}
+    end
+  end
+
   defp page_title(:show), do: "Show Warehouse"
   defp page_title(:edit), do: "Edit Warehouse"
 
