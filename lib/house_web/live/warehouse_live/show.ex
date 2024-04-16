@@ -16,6 +16,7 @@ defmodule HouseWeb.WarehouseLive.Show do
 
     if connected?(socket) do
       Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}_members")
+      Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}")
     end
 
     {:ok, socket}
@@ -25,8 +26,10 @@ defmodule HouseWeb.WarehouseLive.Show do
   def handle_info(%{inserted_member: member}, socket) do
     if member.user_id == socket.assigns.current_user.id do
       socket = socket
+        # Force all members rerender to update role-specific buttons
+        |> stream(:members, Warehouses.list_members(socket.assigns.warehouse.id))
         |> update_current_members_permission_booleans()
-        {:noreply, stream_insert(socket, :members, member)}
+        {:noreply, socket}
     else
       {:noreply, stream_insert(socket, :members, member)}
     end
@@ -39,6 +42,9 @@ defmodule HouseWeb.WarehouseLive.Show do
     else
       {:noreply, stream_delete(socket, :members, member)}
     end
+  end
+  def handle_info(%{updated_warehouse: warehouse}, socket) do
+    {:noreply, assign(socket, :warehouse, warehouse)}
   end
 
   def update_current_members_permission_booleans(socket) do
@@ -115,7 +121,23 @@ defmodule HouseWeb.WarehouseLive.Show do
     end
   end
 
+  def handle_event("transfer_warehouse", %{"member_id" => member_id}, socket) do
+    requesting_user = House.Accounts.get_user!(socket.assigns.current_user.id)
+    new_owner_member = Warehouses.get_member!(member_id) |> House.Repo.preload(:user)
+    warehouse = Warehouses.get_warehouse!(socket.assigns.warehouse.id) |> House.Repo.preload(:owner)
+    cond do
+      warehouse.owner.id != requesting_user.id || warehouse.owner.id == new_owner_member.user_id ->
+        {:noreply, socket}
+      true ->
+        {:ok, _} = Warehouses.transfer_warehouse(warehouse, new_owner_member)
+        socket = socket
+          |> put_flash(:info, "Warehouse transferred to #{new_owner_member.user.email}")
+      {:noreply, socket}
+    end
+  end
+
   def get_members_role_text(member, warehouse) do
+    IO.puts("member: #{inspect(member.user_id)}, warehouse_owner: #{inspect(warehouse.owner_id)}")
     case {warehouse.owner.id, member.user_id, member.is_admin} do
       {x, x, _} -> "owner"
       {_, _, true} -> "admin"

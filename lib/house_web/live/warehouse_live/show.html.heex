@@ -28,9 +28,12 @@
           <td>
             <%= member.user.email %>
           </td>
+
           <td class="pl-4">
             <%= get_members_role_text(member, @warehouse) %>
           </td>
+
+          <%!-- promote/demote --%>
           <%= if @is_owner do %>
             <td class="pl-4">
                 <%= if member.is_admin do %>
@@ -44,20 +47,27 @@
                 <% end %>
             </td>
           <% end %>
-          <%= if member.user.id == @current_user.id do %>
+
+          <%!-- leave/kick --%>
+          <%= if member.user.id == @current_user.id || (@is_owner || @is_admin && !member.is_admin) do %>
             <td class="pl-4">
               <.button class="bg-red-500" phx-click="kick" phx-value-member_id={member.id}>
-                leave
+                <%= if member.user.id == @current_user.id do %>
+                  leave
+                <% else %>
+                  kick
+                <% end %>
               </.button>
             </td>
-          <% else %>
-            <%= if @is_owner || @is_admin && !member.is_admin do %>
-              <td class="pl-4">
-                <.button class="bg-red-500" phx-click="kick" phx-value-member_id={member.id}>
-                  kick
-                </.button>
-              </td>
-            <% end %>
+          <% end %>
+
+          <%!-- transfer --%>
+          <%= if @is_owner && member.user_id != @warehouse.owner.id do %>
+            <td class="pl-4">
+              <.button phx-click="transfer_warehouse" phx-value-member_id={member.id}>
+                transfer
+              </.button>
+            </td>
           <% end %>
         </tr>
       </tbody>

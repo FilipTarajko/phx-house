@@ -350,4 +350,23 @@ defmodule House.Warehouses do
       from m in Member,
       where: m.warehouse_id == ^warehouse_id and m.user_id == ^user_id) != nil
   end
+
+  def transfer_warehouse(warehouse, new_owner_member) do
+    old_owner_member = Repo.one(
+      from m in Member,
+      where:
+        m.warehouse_id == ^warehouse.id
+        and m.is_admin == true
+        and m.user_id == ^warehouse.owner_id
+    )
+
+    {:ok, warehouse} = warehouse
+    |> update_warehouse(%{owner_id: new_owner_member.user_id})
+
+    Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}", %{updated_warehouse: warehouse |> Repo.preload(:owner)})
+    Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}_members", %{inserted_member: old_owner_member |> Repo.preload(:user)})
+
+    new_owner_member
+    |> update_member(%{is_admin: true})
+  end
 end
