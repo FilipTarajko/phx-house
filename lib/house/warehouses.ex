@@ -94,6 +94,7 @@ defmodule House.Warehouses do
 
   """
   def delete_warehouse(%Warehouse{} = warehouse) do
+    Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}", :deleted_warehouse)
     Repo.delete(warehouse)
   end
 
@@ -326,11 +327,17 @@ defmodule House.Warehouses do
 
   """
   def delete_member(%Member{} = member) do
+    member = member |> Repo.preload(:warehouse)
+
     result = Repo.delete(member)
 
-    Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{deleted_member: member})
-
-    result
+    if Repo.one(from m in Member, where: m.warehouse_id == ^member.warehouse_id) == nil do
+      delete_warehouse(member.warehouse)
+      {:ok, :warehouse_deleted}
+    else
+      Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{deleted_member: member})
+      result
+    end
   end
 
   @doc """

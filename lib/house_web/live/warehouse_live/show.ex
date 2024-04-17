@@ -46,6 +46,12 @@ defmodule HouseWeb.WarehouseLive.Show do
   def handle_info(%{updated_warehouse: warehouse}, socket) do
     {:noreply, assign(socket, :warehouse, warehouse)}
   end
+  def handle_info(:deleted_warehouse, socket) do
+    {:noreply,
+     socket
+     |> put_flash(:info, "Warehouse deleted")
+     |> redirect(to: "/warehouses")}
+  end
 
   def update_current_members_permission_booleans(socket) do
     socket
@@ -114,8 +120,15 @@ defmodule HouseWeb.WarehouseLive.Show do
     member = Warehouses.get_member!(member_id)
     cond do
       socket.assigns.is_owner || socket.assigns.is_admin && !member.is_admin || member.user_id == socket.assigns.current_user.id ->
-        {:ok, _} = Warehouses.delete_member(member)
-        {:noreply, stream_delete(socket, :members, member)}
+        {:ok, message} = Warehouses.delete_member(member)
+        if message == :warehouse_deleted do
+          {:noreply,
+           socket
+           |> put_flash(:info, "You were the only member - warehouse deleted")
+           |> redirect(to: "/warehouses")}
+        else
+          {:noreply, stream_delete(socket, :members, member)}
+        end
       true ->
         {:noreply, socket}
     end
@@ -142,7 +155,11 @@ defmodule HouseWeb.WarehouseLive.Show do
       {:noreply, socket |> put_flash(:error, "Only the owner can delete the warehouse")}
     else
       {:ok, _} = Warehouses.delete_warehouse(warehouse)
-      {:noreply, socket |> redirect(to: "/warehouses")}
+      {:noreply,
+       socket
+       |> put_flash(:info, "Warehouse deleted")
+       |> redirect(to: "/warehouses")
+      }
     end
   end
 
