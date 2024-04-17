@@ -6,6 +6,10 @@ defmodule HouseWeb.WarehouseLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Phoenix.PubSub.subscribe(House.PubSub, "warehouses")
+    end
+
     {:ok, stream(socket, :warehouses, Warehouses.list_warehouses())}
   end
 
@@ -29,5 +33,11 @@ defmodule HouseWeb.WarehouseLive.Index do
   @impl true
   def handle_info({HouseWeb.WarehouseLive.FormComponent, {:saved, warehouse}}, socket) do
     {:noreply, stream_insert(socket, :warehouses, warehouse)}
+  end
+  def handle_info(%{inserted_warehouse: warehouse}, socket) do
+    {:noreply, stream_insert(socket, :warehouses, warehouse)}
+  end
+  def handle_info(%{deleted_warehouse: warehouse}, socket) do
+    {:noreply, stream_delete(socket, :warehouses, warehouse)}
   end
 end
