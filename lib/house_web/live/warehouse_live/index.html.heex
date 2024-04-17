@@ -14,22 +14,11 @@
 >
   <:col :let={{_id, warehouse}} label="Name"><%= warehouse.name %></:col>
   <:action :let={{_id, warehouse}}>
-    <div class="sr-only">
       <.link navigate={~p"/warehouses/#{warehouse}"}>Show</.link>
-    </div>
-    <.link patch={~p"/warehouses/#{warehouse}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, warehouse}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: warehouse.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="warehouse-modal" show on_cancel={JS.patch(~p"/warehouses")}>
+<.modal :if={@live_action == :new} id="warehouse-modal" show on_cancel={JS.patch(~p"/warehouses")}>
   <.live_component
     module={HouseWeb.WarehouseLive.FormComponent}
     id={@warehouse.id || :new}
