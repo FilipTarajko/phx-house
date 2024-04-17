@@ -9,7 +9,7 @@
   <:actions>
     <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
       <.button
-        class={if !@is_owner, do: "bg-red-100"}
+        color={if !@is_owner, do: "danger", else: "primary"}
       >Edit warehouse</.button>
     </.link>
   </:actions>
@@ -24,8 +24,9 @@
         <tr
           id={dom_id}
           :for={{dom_id, member} <- @streams.members}
+          class={(if member.user_id == @current_user.id, do: "bg-zinc-200 ", else: "") <> "border-t border-zinc-300 h-12"}
         >
-          <td>
+          <td class="pl-2">
             <%= member.user.email %>
           </td>
 
@@ -33,25 +34,11 @@
             <%= get_members_role_text(member, @warehouse) %>
           </td>
 
-          <%!-- promote/demote --%>
-          <%= if @is_owner do %>
-            <td class="pl-4">
-                <%= if member.is_admin do %>
-                  <.button phx-click="demote" phx-value-member_id={member.id}>
-                      demote
-                  </.button>
-                <% else %>
-                  <.button phx-click="promote" phx-value-member_id={member.id}>
-                      promote
-                  </.button>
-                <% end %>
-            </td>
-          <% end %>
-
           <%!-- leave/kick --%>
           <%= if member.user.id == @current_user.id || (@is_owner || @is_admin && !member.is_admin) do %>
             <td class="pl-4">
-              <.button class="bg-red-500" phx-click="kick" phx-value-member_id={member.id}>
+              <.button class="w-16" phx-click="kick" phx-value-member_id={member.id}
+               color={if member.user.id == @current_user.id, do: "danger", else: "orange"}>
                 <%= if member.user.id == @current_user.id do %>
                   leave
                 <% else %>
@@ -61,14 +48,34 @@
             </td>
           <% end %>
 
-          <%!-- transfer --%>
-          <%= if @is_owner && member.user_id != @warehouse.owner.id do %>
-            <td class="pl-4">
-              <.button phx-click="transfer_warehouse" phx-value-member_id={member.id}>
-                transfer
-              </.button>
+          <%!-- promote/demote --%>
+          <%= if @is_owner do %>
+            <td class="pl-2">
+                <%= case {@warehouse.owner.id == member.user_id, member.is_admin} do %>
+                  <% {true, _} -> %>
+                    <%!-- <.button disabled>
+                        owner
+                    </.button> --%>
+                  <% {_, true} -> %>
+                    <.button phx-click="demote" phx-value-member_id={member.id} class="w-20" color="warning">
+                        demote
+                    </.button>
+                  <% {_, false} -> %>
+                    <.button phx-click="promote" phx-value-member_id={member.id} class="w-20" color="success">
+                        promote
+                    </.button>
+                <% end %>
             </td>
           <% end %>
+
+          <%!-- transfer --%>
+          <td class="pl-2 pr-2">
+            <%= if @is_owner && member.user_id != @warehouse.owner.id do %>
+              <.button phx-click="transfer_warehouse" phx-value-member_id={member.id} color="orange">
+                transfer
+              </.button>
+            <% end %>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -78,7 +85,7 @@
 <%= if @is_admin do %>
   <.form for={@invitation_form} phx-change="validate_invitation" phx-submit="save_invitation" class="mt-12 flex flex-row items-end gap-2">
     <.input name="email" type="email" field={@invitation_form[:email]} value="" label="Email" />
-    <.button phx-disable-with="Saving...">Add member</.button>
+    <.button phx-disable-with="Saving..." color="success">Add member</.button>
   </.form>
 <% end %>
 

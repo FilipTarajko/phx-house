@@ -222,6 +222,7 @@ defmodule HouseWeb.CoreComponents do
   """
   attr :type, :string, default: nil
   attr :class, :string, default: nil
+  attr :color, :string, values: ["default", "primary", "danger", "success", "warning", "orange"], default: "default"
   attr :rest, :global, include: ~w(disabled form name value)
 
   slot :inner_block, required: true
@@ -231,8 +232,14 @@ defmodule HouseWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
+        "phx-submit-loading:opacity-75 rounded-lg py-2 px-3",
         "text-sm font-semibold leading-6 text-white active:text-white/80",
+        @color == "default" && "bg-zinc-900 hover:bg-zinc-700 disabled:bg-zinc-500",
+        @color == "primary" && "bg-cyan-600 hover:bg-cyan-500 disabled:bg-cyan-300",
+        @color == "danger" && "bg-red-600 hover:bg-red-400 disabled:bg-red-300",
+        @color == "success" && "bg-green-700 hover:bg-green-500 disabled:bg-green-300",
+        @color == "warning" && "bg-yellow-500 hover:bg-yellow-300 disabled:bg-yellow-300",
+        @color == "orange" && "bg-orange-500 hover:bg-orange-300 disabled:bg-orange-300",
         @class
       ]}
       {@rest}
