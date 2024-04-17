@@ -136,6 +136,12 @@ defmodule HouseWeb.WarehouseLive.Show do
     end
   end
 
+  def handle_event("delete", %{"id" => id}, socket) do
+    warehouse = Warehouses.get_warehouse!(id)
+    {:ok, _} = Warehouses.delete_warehouse(warehouse)
+    {:noreply, socket |> redirect(to: "/warehouses")}
+  end
+
   def get_members_role_text(member, warehouse) do
     IO.puts("member: #{inspect(member.user_id)}, warehouse_owner: #{inspect(warehouse.owner_id)}")
     case {warehouse.owner.id, member.user_id, member.is_admin} do

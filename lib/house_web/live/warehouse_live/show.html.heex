@@ -9,8 +9,16 @@
   <:actions>
     <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
       <.button
-        color={if !@is_owner, do: "danger", else: "primary"}
+        color={if !@is_owner, do: "orange", else: "primary"}
       >Edit warehouse</.button>
+    </.link>
+    <.link
+      phx-click={JS.push("delete", value: %{id: @warehouse.id})}
+      data-confirm="Are you sure?"
+    >
+      <.button color={if !@is_owner, do: "orange", else: "danger"}>
+        Delete
+      </.button>
     </.link>
   </:actions>
 </.header>
