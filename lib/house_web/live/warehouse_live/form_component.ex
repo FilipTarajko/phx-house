@@ -53,22 +53,22 @@ defmodule HouseWeb.WarehouseLive.FormComponent do
   end
 
   defp save_warehouse(socket, :edit, warehouse_params) do
-    # if socket.assigns.warehouse.owner_id != socket.assigns.current_user.id do
-    #   {:noreply, socket}
-    # else
-    case Warehouses.update_warehouse(socket.assigns.warehouse, warehouse_params) do
-      {:ok, warehouse} ->
-        notify_parent({:saved, warehouse})
+    if socket.assigns.warehouse.owner_id != socket.assigns.current_user.id do
+      {:noreply, socket}
+    else
+      case Warehouses.update_warehouse(socket.assigns.warehouse, warehouse_params) do
+        {:ok, _warehouse} ->
+          # notify_parent({:saved, warehouse})
 
-        {:noreply,
-         socket
-         |> put_flash(:info, "Warehouse updated successfully")
-         |> push_patch(to: socket.assigns.patch)}
+          {:noreply,
+            socket
+            |> put_flash(:info, "Warehouse updated successfully")
+            |> push_patch(to: socket.assigns.patch)}
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        {:noreply, assign_form(socket, changeset)}
+        {:error, %Ecto.Changeset{} = changeset} ->
+          {:noreply, assign_form(socket, changeset)}
+      end
     end
-    # end
   end
 
   defp save_warehouse(socket, :new, warehouse_params) do

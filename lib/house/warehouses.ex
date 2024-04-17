@@ -68,9 +68,17 @@ defmodule House.Warehouses do
 
   """
   def update_warehouse(%Warehouse{} = warehouse, attrs) do
-    warehouse
+    warehouse_changeset = warehouse
     |> Warehouse.changeset(attrs)
-    |> Repo.update()
+
+    result = Repo.update(warehouse_changeset)
+
+    case result do
+      {:ok, warehouse} -> Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}", %{updated_warehouse: warehouse |> Repo.preload(:owner)})
+      _ -> nil
+    end
+
+    result
   end
 
   @doc """
@@ -363,7 +371,6 @@ defmodule House.Warehouses do
     {:ok, warehouse} = warehouse
     |> update_warehouse(%{owner_id: new_owner_member.user_id})
 
-    Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}", %{updated_warehouse: warehouse |> Repo.preload(:owner)})
     Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}_members", %{inserted_member: old_owner_member |> Repo.preload(:user)})
 
     new_owner_member

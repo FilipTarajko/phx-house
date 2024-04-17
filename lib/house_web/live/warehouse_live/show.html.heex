@@ -7,21 +7,21 @@
     <%= "member: #{@is_member}" %>
   </:subtitle>
   <:actions>
-    <%!-- <%= if @warehouse.owner_id == @current_user.id do %> --%>
-    <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
-      <.button
-        color={if !@is_owner, do: "orange", else: "primary"}
-      >Edit warehouse</.button>
-    </.link>
-    <.link
-      phx-click={JS.push("delete", value: %{id: @warehouse.id})}
-      data-confirm="Are you sure?"
-    >
-      <.button color="danger">
-        Delete
-      </.button>
-    </.link>
-    <%!-- <% end %> --%>
+    <%= if @warehouse.owner_id == @current_user.id do %>
+      <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
+        <.button
+          color={if !@is_owner, do: "orange", else: "primary"}
+        >Edit warehouse</.button>
+      </.link>
+      <.link
+        phx-click={JS.push("delete", value: %{id: @warehouse.id})}
+        data-confirm="Are you sure?"
+      >
+        <.button color="danger">
+          Delete
+        </.button>
+      </.link>
+    <% end %>
   </:actions>
 </.header>
 
@@ -116,6 +116,7 @@
     title={@page_title}
     action={@live_action}
     warehouse={@warehouse}
+    current_user={@current_user}
     patch={~p"/warehouses/#{@warehouse}"}
   />
 </.modal>
