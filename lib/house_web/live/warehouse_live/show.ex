@@ -138,8 +138,12 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   def handle_event("delete", %{"id" => id}, socket) do
     warehouse = Warehouses.get_warehouse!(id)
-    {:ok, _} = Warehouses.delete_warehouse(warehouse)
-    {:noreply, socket |> redirect(to: "/warehouses")}
+    if warehouse.owner_id != socket.assigns.current_user.id do
+      {:noreply, socket |> put_flash(:error, "Only the owner can delete the warehouse")}
+    else
+      {:ok, _} = Warehouses.delete_warehouse(warehouse)
+      {:noreply, socket |> redirect(to: "/warehouses")}
+    end
   end
 
   def get_members_role_text(member, warehouse) do

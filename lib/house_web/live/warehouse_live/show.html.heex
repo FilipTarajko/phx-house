@@ -7,6 +7,7 @@
     <%= "member: #{@is_member}" %>
   </:subtitle>
   <:actions>
+    <%!-- <%= if @warehouse.owner_id == @current_user.id do %> --%>
     <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
       <.button
         color={if !@is_owner, do: "orange", else: "primary"}
@@ -16,10 +17,11 @@
       phx-click={JS.push("delete", value: %{id: @warehouse.id})}
       data-confirm="Are you sure?"
     >
-      <.button color={if !@is_owner, do: "orange", else: "danger"}>
+      <.button color="danger">
         Delete
       </.button>
     </.link>
+    <%!-- <% end %> --%>
   </:actions>
 </.header>
 
