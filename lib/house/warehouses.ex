@@ -341,9 +341,26 @@ defmodule House.Warehouses do
 
     result = Repo.delete(member)
 
-    if Repo.one(from m in Member, where: m.warehouse_id == ^member.warehouse_id) == nil do
-      delete_warehouse(member.warehouse)
-      {:ok, :warehouse_deleted}
+    if member.user_id == member.warehouse.owner_id do
+      if Repo.one(from m in Member, where: m.warehouse_id == ^member.warehouse_id, limit: 1) == nil do
+        delete_warehouse(member.warehouse)
+        {:ok, :warehouse_deleted}
+      else
+
+        new_owner_member = Repo.all(
+          from m in Member,
+          where: m.warehouse_id == ^member.warehouse_id
+        )
+        |> Repo.preload(:user)
+        |> Enum.sort_by(&(&1.inserted_at))
+        |> Enum.sort_by(&{&1.is_admin}, :desc)
+        |> List.first()
+
+        transfer_warehouse(member.warehouse, new_owner_member)
+        Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{deleted_member: member})
+
+        result
+      end
     else
       Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{deleted_member: member})
       result
@@ -388,7 +405,9 @@ defmodule House.Warehouses do
     {:ok, warehouse} = warehouse
     |> update_warehouse(%{owner_id: new_owner_member.user_id})
 
-    Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}_members", %{inserted_member: old_owner_member |> Repo.preload(:user)})
+    if old_owner_member do
+      Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}_members", %{inserted_member: old_owner_member |> Repo.preload(:user)})
+    end
 
     new_owner_member
     |> update_member(%{is_admin: true})

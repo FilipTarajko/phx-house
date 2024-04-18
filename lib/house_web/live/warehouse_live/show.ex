@@ -37,6 +37,8 @@ defmodule HouseWeb.WarehouseLive.Show do
   def handle_info(%{deleted_member: member}, socket) do
     if member.user_id == socket.assigns.current_user.id do
       socket = socket
+        # Force all members rerender to update role-specific buttons
+        |> stream(:members, Warehouses.list_members(socket.assigns.warehouse.id))
         |> update_current_members_permission_booleans()
         {:noreply, stream_delete(socket, :members, member)}
     else
