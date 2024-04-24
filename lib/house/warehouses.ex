@@ -55,7 +55,7 @@ defmodule House.Warehouses do
     |> Repo.insert()
 
     case result do
-      {:ok, warehouse} -> Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{inserted_warehouse: warehouse})
+      {:ok, warehouse} -> Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{inserted_warehouse: warehouse, users_to_be_shown_update: [attrs["owner_id"]]})
       _ -> nil
     end
 
@@ -80,9 +80,13 @@ defmodule House.Warehouses do
 
     result = Repo.update(warehouse_changeset)
 
+    users_to_be_shown_update = Enum.map(list_members(warehouse.id), fn member ->
+      member.user_id
+    end)
+
     case result do
       {:ok, warehouse} ->
-        Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{inserted_warehouse: warehouse})
+        Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{inserted_warehouse: warehouse, users_to_be_shown_update: users_to_be_shown_update})
         Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}", %{updated_warehouse: warehouse |> Repo.preload(:owner)})
       _ -> nil
     end
@@ -103,8 +107,12 @@ defmodule House.Warehouses do
 
   """
   def delete_warehouse(%Warehouse{} = warehouse) do
+    users_to_be_shown_update = Enum.map(list_members(warehouse.id), fn member ->
+      member.user_id
+    end)
+
     Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{warehouse.id}", :deleted_warehouse)
-    Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{deleted_warehouse: warehouse})
+    Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{deleted_warehouse: warehouse, users_to_be_shown_update: users_to_be_shown_update})
     Repo.delete(warehouse)
   end
 

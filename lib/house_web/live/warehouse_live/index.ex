@@ -34,10 +34,18 @@ defmodule HouseWeb.WarehouseLive.Index do
   def handle_info({HouseWeb.WarehouseLive.FormComponent, {:saved, warehouse}}, socket) do
     {:noreply, stream_insert(socket, :warehouses, warehouse)}
   end
-  def handle_info(%{inserted_warehouse: warehouse}, socket) do
-    {:noreply, stream_insert(socket, :warehouses, warehouse)}
+  def handle_info(%{inserted_warehouse: warehouse, users_to_be_shown_update: users_to_be_shown_update}, socket) do
+    if Enum.any?(users_to_be_shown_update, fn user_id -> user_id == socket.assigns.current_user.id end) do
+      {:noreply, stream_insert(socket, :warehouses, warehouse)}
+    else
+      {:noreply, socket}
+    end
   end
-  def handle_info(%{deleted_warehouse: warehouse}, socket) do
-    {:noreply, stream_delete(socket, :warehouses, warehouse)}
+  def handle_info(%{deleted_warehouse: warehouse, users_to_be_shown_update: users_to_be_shown_update}, socket) do
+    if Enum.any?(users_to_be_shown_update, fn user_id -> user_id == socket.assigns.current_user.id end) do
+      {:noreply, stream_delete(socket, :warehouses, warehouse)}
+    else
+      {:noreply, socket}
+    end
   end
 end
