@@ -304,7 +304,12 @@ defmodule House.Warehouses do
     result = Repo.insert(member_changeset)
 
     case result do
-      {:ok, member} -> Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{inserted_member: member |> Repo.preload(:user)})
+      {:ok, member} ->
+        member = member |> Repo.preload(:user) |> Repo.preload(:warehouse)
+        Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{inserted_member: member})
+        if member.user_id != member.warehouse.owner_id do
+          Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{users_to_be_shown_update: [member.user_id], inserted_warehouse: member.warehouse})
+        end
       _ -> nil
     end
 
@@ -357,6 +362,7 @@ defmodule House.Warehouses do
     if member.user_id == member.warehouse.owner_id do
       if Repo.one(from m in Member, where: m.warehouse_id == ^member.warehouse_id, limit: 1) == nil do
         delete_warehouse(member.warehouse)
+        Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{users_to_be_shown_update: [member.user_id], deleted_warehouse: member.warehouse})
         {:ok, :warehouse_deleted}
       else
 
@@ -371,11 +377,13 @@ defmodule House.Warehouses do
 
         transfer_warehouse(member.warehouse, new_owner_member)
         Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{deleted_member: member})
+        Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{users_to_be_shown_update: [member.user_id], deleted_warehouse: member.warehouse})
 
         result
       end
     else
       Phoenix.PubSub.broadcast(House.PubSub, "warehouse_#{member.warehouse_id}_members", %{deleted_member: member})
+      Phoenix.PubSub.broadcast(House.PubSub, "warehouses", %{users_to_be_shown_update: [member.user_id], deleted_warehouse: member.warehouse})
       result
     end
   end
