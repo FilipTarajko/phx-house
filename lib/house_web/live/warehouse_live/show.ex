@@ -42,9 +42,8 @@ defmodule HouseWeb.WarehouseLive.Show do
   def handle_info(%{deleted_member: member}, socket) do
     if member.user_id == socket.assigns.current_user.id do
       socket = socket
-        # Force all members rerender to update role-specific buttons
-        |> stream(:members, Warehouses.list_members(socket.assigns.warehouse.id))
-        |> update_current_members_permission_booleans()
+        |> put_flash(:error, "You have been removed from the warehouse")
+        |> redirect(to: "/warehouses")
         {:noreply, stream_delete(socket, :members, member)}
     else
       {:noreply, stream_delete(socket, :members, member)}
@@ -134,7 +133,16 @@ defmodule HouseWeb.WarehouseLive.Show do
            |> put_flash(:info, "You were the only member - warehouse deleted")
            |> redirect(to: "/warehouses")}
         else
-          {:noreply, stream_delete(socket, :members, member)}
+          if member.user_id == socket.assigns.current_user.id do
+            warehouse = Warehouses.get_warehouse!(socket.assigns.warehouse.id) |> House.Repo.preload(:owner)
+            {:noreply,
+              socket
+              |> put_flash(:info, "You have left the warehouse, the new owner is #{warehouse.owner.email}")
+              |> redirect(to: "/warehouses")
+            }
+          else
+            {:noreply, stream_delete(socket, :members, member)}
+          end
         end
       true ->
         {:noreply, socket}
