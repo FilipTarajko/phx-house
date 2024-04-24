@@ -3,23 +3,28 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   alias House.Warehouses
 
+
   @impl true
   def mount(params, _session, socket) do
-    members = Warehouses.list_members(params["id"])
-    |> Enum.sort_by(&(&1.user.email))
-    |> Enum.sort_by(&{&1.is_admin}, :desc)
-    |> Enum.sort_by(&(&1.user_id == Warehouses.get_warehouse!(params["id"]).owner_id), :desc)
+    if !House.Warehouses.is_member?(params["id"], socket.assigns.current_user.id) do
+      {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
+    else
+      members = Warehouses.list_members(params["id"])
+      |> Enum.sort_by(&(&1.user.email))
+      |> Enum.sort_by(&{&1.is_admin}, :desc)
+      |> Enum.sort_by(&(&1.user_id == Warehouses.get_warehouse!(params["id"]).owner_id), :desc)
 
-    socket = socket
-      |> stream(:members, members)
-      |> assign(invitation_form: to_form(%{"email" => ""}))
+      socket = socket
+        |> stream(:members, members)
+        |> assign(invitation_form: to_form(%{"email" => ""}))
 
-    if connected?(socket) do
-      Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}_members")
-      Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}")
+      if connected?(socket) do
+        Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}_members")
+        Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}")
+      end
+      {:ok, socket}
     end
 
-    {:ok, socket}
   end
 
   @impl true

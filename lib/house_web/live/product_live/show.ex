@@ -5,10 +5,14 @@ defmodule HouseWeb.ProductLive.Show do
 
   @impl true
   def mount(params, _session, socket) do
-    socket = socket
-    |> assign(:warehouseId, params["warehouseId"])
-    |> assign(:warehouseName, Warehouses.get_warehouse!(params["warehouseId"]).name)
-    {:ok, socket}
+    if !House.Warehouses.is_member?(params["warehouseId"], socket.assigns.current_user.id) do
+      {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
+    else
+      socket = socket
+      |> assign(:warehouseId, params["warehouseId"])
+      |> assign(:warehouseName, Warehouses.get_warehouse!(params["warehouseId"]).name)
+      {:ok, socket}
+    end
   end
 
   @impl true

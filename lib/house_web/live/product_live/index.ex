@@ -14,15 +14,19 @@ defmodule HouseWeb.ProductLive.Index do
 
   @impl true
   def mount(params, _session, socket) do
-    socket = socket
-    |> assign(:warehouseId, params["warehouseId"])
-    |> assign(:warehouseName, Warehouses.get_warehouse!(params["warehouseId"]).name)
+    if !House.Warehouses.is_member?(params["warehouseId"], socket.assigns.current_user.id) do
+      {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
+    else
+      socket = socket
+      |> assign(:warehouseId, params["warehouseId"])
+      |> assign(:warehouseName, Warehouses.get_warehouse!(params["warehouseId"]).name)
 
-    if connected?(socket) do
-      Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["warehouseId"]}_products")
+      if connected?(socket) do
+        Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["warehouseId"]}_products")
+      end
+
+      {:ok, stream(socket, :products, Warehouses.list_products(params["warehouseId"]))}
     end
-
-    {:ok, stream(socket, :products, Warehouses.list_products(params["warehouseId"]))}
   end
 
   @impl true
