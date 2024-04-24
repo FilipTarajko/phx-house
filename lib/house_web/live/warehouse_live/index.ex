@@ -10,7 +10,7 @@ defmodule HouseWeb.WarehouseLive.Index do
       Phoenix.PubSub.subscribe(House.PubSub, "warehouses")
     end
 
-    {:ok, stream(socket, :warehouses, Warehouses.list_warehouses())}
+    {:ok, stream(socket, :warehouses, Warehouses.list_warehouses(socket.assigns.current_user.id))}
   end
 
   @impl true

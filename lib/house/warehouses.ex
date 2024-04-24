@@ -13,12 +13,17 @@ defmodule House.Warehouses do
 
   ## Examples
 
-      iex> list_warehouses()
+      iex> list_warehouses(user_id)
       [%Warehouse{}, ...]
 
   """
-  def list_warehouses do
-    Repo.all(Warehouse)
+  def list_warehouses(user_id) do
+    Repo.all(
+      from w in Warehouse,
+      join: m in assoc(w, :members),
+      where: m.user_id == ^user_id,
+      select: w
+    )
   end
 
   @doc """
