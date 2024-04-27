@@ -4,7 +4,12 @@
     </div>
   </div>
 </header> --%>
-<main class="px-4 py-20 sm:px-6 lg:px-8">
+<div class="flex justify-center mt-6">
+  <div class="w-full max-w-[42rem]" id="breadcrumbs_parent">
+    <.breadcrumbs uri_splits={@uri_splits} />
+  </div>
+</div>
+<main class="px-4 py-12 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-2xl">
     <.flash_group flash={@flash} />
     <%= @inner_content %>
