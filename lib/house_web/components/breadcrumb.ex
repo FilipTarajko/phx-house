@@ -2,15 +2,19 @@ defmodule HouseWeb.Breadcrumb do
   use Phoenix.Component
   import HouseWeb.CoreComponents
 
-  attr :uri_splits, :list, required: true
+  attr :links_data, :list, required: true
 
   def breadcrumbs(assigns) do
     ~H"""
     <div class="mt-4">
-      PhxHouse
-      <%= for uri_split <- @uri_splits do %>
+      <.link navigate={"/"}>
+        PhxHouse
+      </.link>
+      <%= for link_data <- @links_data do %>
         <.icon name="hero-chevron-right" class="h-3 w-3" />
-        <%= uri_split %>
+        <.link navigate={"/"<>link_data.path}>
+          <%= link_data.segment %>
+        </.link>
       <% end %>
     </div>
     """
