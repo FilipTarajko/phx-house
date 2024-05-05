@@ -1,7 +1,7 @@
 <.header>
-  Products (in <%= @warehouse_name %>)
+  Products (in <%= @warehouse.name %>)
   <:actions>
-    <.link patch={~p"/warehouses/#{@warehouse_id}/products/new"}>
+    <.link patch={~p"/warehouses/#{@warehouse.id}/products/new"}>
       <.button>New Product</.button>
     </.link>
   </:actions>
@@ -33,7 +33,7 @@
     <%!-- <div class="sr-only">
       <.link navigate={~p"/warehouses/#{@warehouse_id}/products/#{product}"}>Show</.link>
     </div> --%>
-    <.link patch={~p"/warehouses/#{@warehouse_id}/products/#{product}/edit"}>Edit</.link>
+    <.link patch={~p"/warehouses/#{@warehouse.id}/products/#{product}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, product}}>
     <.link
@@ -45,16 +45,16 @@
   </:action>
 </.table>
 
-<.back navigate={~p"/warehouses/#{@warehouse_id}"}>Back to warehouse (<%= @warehouse_name %>)</.back>
+<.back navigate={~p"/warehouses/#{@warehouse.id}"}>Back to warehouse (<%= @warehouse.name %>)</.back>
 
-<.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouse_id}/products")}>
+<.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouse.id}/products")}>
   <.live_component
     module={HouseWeb.ProductLive.FormComponent}
     id={@product.id || :new}
-    warehouse_id={@warehouse_id}
+    warehouse_id={@warehouse.id}
     title={@page_title}
     action={@live_action}
     product={@product}
-    patch={~p"/warehouses/#{@warehouse_id}/products"}
+    patch={~p"/warehouses/#{@warehouse.id}/products"}
   />
 </.modal>

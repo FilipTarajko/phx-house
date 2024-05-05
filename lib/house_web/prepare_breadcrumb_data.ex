@@ -45,9 +45,7 @@ defmodule HouseWeb.PrepareBreadcrumData do
       IO.puts("warehouse name: #{name}")
       {String.replace(uri_with_substitutions, params["warehouse_id"], name, global: false),
         socket
-        |> Phoenix.Component.assign(:warehouse_id, params["warehouse_id"])
-        # |> Phoenix.Component.assign(:warehouse, House.Warehouses.get_warehouse!(params["warehouse_id"]) |> House.Repo.preload(:owner))
-        |> Phoenix.Component.assign(:warehouse_name, House.Warehouses.get_warehouse!(params["warehouse_id"]).name)
+        |> Phoenix.Component.assign(:warehouse, House.Warehouses.get_warehouse!(params["warehouse_id"]) |> House.Repo.preload(:owner))
       }
     else
       {uri_with_substitutions, socket}

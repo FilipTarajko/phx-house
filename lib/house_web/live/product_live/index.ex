@@ -17,10 +17,6 @@ defmodule HouseWeb.ProductLive.Index do
     if !House.Warehouses.is_member?(params["warehouse_id"], socket.assigns.current_user.id) do
       {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
     else
-      socket = socket
-      |> assign(:warehouse_id, params["warehouse_id"])
-      |> assign(:warehouse_name, Warehouses.get_warehouse!(params["warehouse_id"]).name)
-
       if connected?(socket) do
         Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["warehouse_id"]}_products")
       end

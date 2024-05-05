@@ -67,12 +67,10 @@ defmodule HouseWeb.WarehouseLive.Show do
   end
 
   @impl true
-  def handle_params(%{"warehouse_id" => id}, _, socket) do
-    warehouse = Warehouses.get_warehouse!(id) |> House.Repo.preload(:owner)
+  def handle_params(_params, _, socket) do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:warehouse, warehouse)
      |> update_current_members_permission_booleans()
     }
   end
