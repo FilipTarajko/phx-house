@@ -19,7 +19,7 @@ defmodule HouseWeb.ProductLive.Index do
     else
       socket = socket
       |> assign(:warehouse_id, params["warehouse_id"])
-      |> assign(:warehouseName, Warehouses.get_warehouse!(params["warehouse_id"]).name)
+      |> assign(:warehouse_name, Warehouses.get_warehouse!(params["warehouse_id"]).name)
 
       if connected?(socket) do
         Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["warehouse_id"]}_products")

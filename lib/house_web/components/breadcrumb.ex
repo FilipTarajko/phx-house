@@ -13,7 +13,7 @@ defmodule HouseWeb.Breadcrumb do
       <%= for link_data <- @links_data do %>
         <.icon name="hero-chevron-right" class="h-3 w-3" />
         <.link navigate={"/"<>link_data.path}>
-          <%= link_data.segment %>
+          <%= link_data.segment_name %>
         </.link>
       <% end %>
     </div>
