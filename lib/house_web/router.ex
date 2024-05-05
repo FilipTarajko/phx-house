@@ -79,10 +79,10 @@ defmodule HouseWeb.Router do
       scope "/warehouses/:warehouse_id" do
         live "/products", ProductLive.Index, :index
         live "/products/new", ProductLive.Index, :new
-        live "/products/:id/edit", ProductLive.Index, :edit
+        live "/products/:product_id/edit", ProductLive.Index, :edit
 
-        live "/products/:id", ProductLive.Show, :show
-        live "/products/:id/show/edit", ProductLive.Show, :edit
+        live "/products/:product_id", ProductLive.Show, :show
+        live "/products/:product_id/show/edit", ProductLive.Show, :edit
       end
 
       live "/members", MemberLive.Index, :index

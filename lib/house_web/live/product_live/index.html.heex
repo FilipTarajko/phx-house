@@ -37,7 +37,7 @@
   </:action>
   <:action :let={{id, product}}>
     <.link
-      phx-click={JS.push("delete", value: %{id: product.id}) |> hide("##{id}")}
+      phx-click={JS.push("delete", value: %{product_id: product.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"
     >
       Delete

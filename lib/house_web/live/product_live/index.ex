@@ -30,10 +30,10 @@ defmodule HouseWeb.ProductLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(socket, :edit, %{"product_id" => product_id}) do
     socket
     |> assign(:page_title, "Edit Product")
-    |> assign(:product, Warehouses.get_product!(id))
+    |> assign(:product, Warehouses.get_product!(product_id))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -62,8 +62,8 @@ defmodule HouseWeb.ProductLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    product = Warehouses.get_product!(id)
+  def handle_event("delete", %{"product_id" => product_id}, socket) do
+    product = Warehouses.get_product!(product_id)
     {:ok, _} = Warehouses.delete_product(product)
 
     {:noreply, stream_delete(socket, :products, product)}
