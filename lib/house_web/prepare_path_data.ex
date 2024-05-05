@@ -15,6 +15,7 @@ defmodule HouseWeb.PreparePathData do
     uri_with_substitutions = uri
 
     {uri_with_substitutions, socket} = prepare_warehouse_data(uri_with_substitutions, socket, params)
+    {uri_with_substitutions, socket} = prepare_product_data(uri_with_substitutions, socket, params)
 
     uri_splits = String.split(uri, "/") |> Enum.drop(1)
     uri_with_substitutions_splits = String.split(uri_with_substitutions, "/") |> Enum.drop(1)
@@ -41,11 +42,22 @@ defmodule HouseWeb.PreparePathData do
 
   defp prepare_warehouse_data(uri_with_substitutions, socket, params) do
     if (Map.has_key?(params, "warehouse_id")) do
-      name = House.Warehouses.get_warehouse!(params["warehouse_id"]).name
-      IO.puts("warehouse name: #{name}")
-      {String.replace(uri_with_substitutions, params["warehouse_id"], name, global: false),
+      warehouse = House.Warehouses.get_warehouse!(params["warehouse_id"]) |> House.Repo.preload(:owner)
+      {String.replace(uri_with_substitutions, params["warehouse_id"], warehouse.name, global: false),
         socket
-        |> Phoenix.Component.assign(:warehouse, House.Warehouses.get_warehouse!(params["warehouse_id"]) |> House.Repo.preload(:owner))
+        |> Phoenix.Component.assign(:warehouse, warehouse)
+      }
+    else
+      {uri_with_substitutions, socket}
+    end
+  end
+
+  defp prepare_product_data(uri_with_substitutions, socket, params) do
+    if (Map.has_key?(params, "product_id")) do
+      product = House.Warehouses.get_product!(params["product_id"])
+      {String.replace(uri_with_substitutions, params["product_id"], product.name, global: false),
+        socket
+        |> Phoenix.Component.assign(:product, product)
       }
     else
       {uri_with_substitutions, socket}
