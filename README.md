@@ -1,4 +1,13 @@
-# House
+# PhxHouse
+
+Home inventory management system built with Phoenix LiveView
+
+features:
+- account system
+- managing warehouses
+- managing warehouses' members and their permissions
+- managing warehouses' products
+- live data updates without refreshing (via WebSockets or long polling)
 
 ## Used technologies
 
