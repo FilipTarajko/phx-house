@@ -30,10 +30,9 @@ defmodule HouseWeb.ProductLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"product_id" => product_id}) do
+  defp apply_action(socket, :edit, %{"product_id" => _product_id}) do
     socket
     |> assign(:page_title, "Edit Product")
-    |> assign(:product, Warehouses.get_product!(product_id))
   end
 
   defp apply_action(socket, :new, _params) do
