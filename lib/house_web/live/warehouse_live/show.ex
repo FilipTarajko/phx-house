@@ -6,21 +6,21 @@ defmodule HouseWeb.WarehouseLive.Show do
 
   @impl true
   def mount(params, _session, socket) do
-    if !House.Warehouses.is_member?(params["id"], socket.assigns.current_user.id) do
+    if !House.Warehouses.is_member?(params["warehouse_id"], socket.assigns.current_user.id) do
       {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
     else
-      members = Warehouses.list_members(params["id"])
+      members = Warehouses.list_members(params["warehouse_id"])
       |> Enum.sort_by(&(&1.user.email))
       |> Enum.sort_by(&{&1.is_admin}, :desc)
-      |> Enum.sort_by(&(&1.user_id == Warehouses.get_warehouse!(params["id"]).owner_id), :desc)
+      |> Enum.sort_by(&(&1.user_id == Warehouses.get_warehouse!(params["warehouse_id"]).owner_id), :desc)
 
       socket = socket
         |> stream(:members, members)
         |> assign(invitation_form: to_form(%{"email" => ""}))
 
       if connected?(socket) do
-        Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}_members")
-        Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["id"]}")
+        Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["warehouse_id"]}_members")
+        Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["warehouse_id"]}")
       end
       {:ok, socket}
     end
@@ -67,7 +67,7 @@ defmodule HouseWeb.WarehouseLive.Show do
   end
 
   @impl true
-  def handle_params(%{"id" => id}, _, socket) do
+  def handle_params(%{"warehouse_id" => id}, _, socket) do
     warehouse = Warehouses.get_warehouse!(id) |> House.Repo.preload(:owner)
     {:noreply,
      socket
@@ -164,7 +164,7 @@ defmodule HouseWeb.WarehouseLive.Show do
     end
   end
 
-  def handle_event("delete", %{"id" => id}, socket) do
+  def handle_event("delete", %{"warehouse_id" => id}, socket) do
     warehouse = Warehouses.get_warehouse!(id)
     if warehouse.owner_id != socket.assigns.current_user.id do
       {:noreply, socket |> put_flash(:error, "Only the owner can delete the warehouse")}

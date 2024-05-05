@@ -71,12 +71,12 @@ defmodule HouseWeb.Router do
 
       live "/warehouses", WarehouseLive.Index, :index
       live "/warehouses/new", WarehouseLive.Index, :new
-      live "/warehouses/:id/edit", WarehouseLive.Index, :edit
+      live "/warehouses/:warehouse_id/edit", WarehouseLive.Index, :edit
 
-      live "/warehouses/:id", WarehouseLive.Show, :show
-      live "/warehouses/:id/show/edit", WarehouseLive.Show, :edit
+      live "/warehouses/:warehouse_id", WarehouseLive.Show, :show
+      live "/warehouses/:warehouse_id/show/edit", WarehouseLive.Show, :edit
 
-      scope "/warehouses/:warehouseId" do
+      scope "/warehouses/:warehouse_id" do
         live "/products", ProductLive.Index, :index
         live "/products/new", ProductLive.Index, :new
         live "/products/:id/edit", ProductLive.Index, :edit

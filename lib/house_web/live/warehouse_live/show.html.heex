@@ -14,7 +14,7 @@
         >Edit warehouse</.button>
       </.link>
       <.link
-        phx-click={JS.push("delete", value: %{id: @warehouse.id})}
+        phx-click={JS.push("delete", value: %{warehouse_id: @warehouse.id})}
         data-confirm="Are you sure?"
       >
         <.button color="danger">

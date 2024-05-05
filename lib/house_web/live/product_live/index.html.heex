@@ -1,13 +1,13 @@
 <.header>
   Products (in <%= @warehouseName %>)
   <:actions>
-    <.link patch={~p"/warehouses/#{@warehouseId}/products/new"}>
+    <.link patch={~p"/warehouses/#{@warehouse_id}/products/new"}>
       <.button>New Product</.button>
     </.link>
   </:actions>
 </.header>
 
-<%!-- row_click={fn {_id, product} -> JS.navigate(~p"/warehouses/#{@warehouseId}/products/#{product}") end} --%>
+<%!-- row_click={fn {_id, product} -> JS.navigate(~p"/warehouses/#{@warehouse_id}/products/#{product}") end} --%>
 <.table
   id="products"
   rows={@streams.products}
@@ -31,9 +31,9 @@
   <:col :let={{_id, product}} label="Description"><%= product.description %></:col>
   <:action :let={{_id, product}}>
     <%!-- <div class="sr-only">
-      <.link navigate={~p"/warehouses/#{@warehouseId}/products/#{product}"}>Show</.link>
+      <.link navigate={~p"/warehouses/#{@warehouse_id}/products/#{product}"}>Show</.link>
     </div> --%>
-    <.link patch={~p"/warehouses/#{@warehouseId}/products/#{product}/edit"}>Edit</.link>
+    <.link patch={~p"/warehouses/#{@warehouse_id}/products/#{product}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, product}}>
     <.link
@@ -45,16 +45,16 @@
   </:action>
 </.table>
 
-<.back navigate={~p"/warehouses/#{@warehouseId}"}>Back to warehouse (<%= @warehouseName %>)</.back>
+<.back navigate={~p"/warehouses/#{@warehouse_id}"}>Back to warehouse (<%= @warehouseName %>)</.back>
 
-<.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouseId}/products")}>
+<.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouse_id}/products")}>
   <.live_component
     module={HouseWeb.ProductLive.FormComponent}
     id={@product.id || :new}
-    warehouse_id={@warehouseId}
+    warehouse_id={@warehouse_id}
     title={@page_title}
     action={@live_action}
     product={@product}
-    patch={~p"/warehouses/#{@warehouseId}/products"}
+    patch={~p"/warehouses/#{@warehouse_id}/products"}
   />
 </.modal>

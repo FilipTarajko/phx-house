@@ -2,7 +2,7 @@
   Product <%= @product.name %> (in <%= @warehouseName %>)
   <:subtitle>This is a product record from your database.</:subtitle>
   <:actions>
-    <.link patch={~p"/warehouses/#{@warehouseId}/products/#{@product}/show/edit"} phx-click={JS.push_focus()}>
+    <.link patch={~p"/warehouses/#{@warehouse_id}/products/#{@product}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit product</.button>
     </.link>
   </:actions>
@@ -16,15 +16,15 @@
   <:item title="Description"><%= @product.description %></:item>
 </.list>
 
-<.back navigate={~p"/warehouses/#{@warehouseId}/products"}>Back to products (in <%= @warehouseName %>)</.back>
+<.back navigate={~p"/warehouses/#{@warehouse_id}/products"}>Back to products (in <%= @warehouseName %>)</.back>
 
-<.modal :if={@live_action == :edit} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouseId}/products/#{@product}")}>
+<.modal :if={@live_action == :edit} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouse_id}/products/#{@product}")}>
   <.live_component
     module={HouseWeb.ProductLive.FormComponent}
     id={@product.id}
     title={@page_title}
     action={@live_action}
     product={@product}
-    patch={~p"/warehouses/#{@warehouseId}/products/#{@product}"}
+    patch={~p"/warehouses/#{@warehouse_id}/products/#{@product}"}
   />
 </.modal>
