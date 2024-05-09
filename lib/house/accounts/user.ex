@@ -9,6 +9,7 @@ defmodule House.Accounts.User do
     field :confirmed_at, :naive_datetime
     has_many :warehouses, House.Warehouses.Warehouse, foreign_key: :owner_id
     has_many :members, House.Warehouses.Member, foreign_key: :user_id
+    field :locale, :string, default: "en"
 
     timestamps(type: :utc_datetime)
   end
@@ -49,6 +50,12 @@ defmodule House.Accounts.User do
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
     |> maybe_validate_unique_email(opts)
+  end
+
+  defp validate_locale(changeset, _) do
+    changeset
+    |> validate_required([:locale])
+    |> validate_inclusion(:locale, ["en", "pl"])
   end
 
   defp validate_password(changeset, opts) do
@@ -101,6 +108,16 @@ defmodule House.Accounts.User do
     |> case do
       %{changes: %{email: _}} = changeset -> changeset
       %{} = changeset -> add_error(changeset, :email, "did not change")
+    end
+  end
+
+  def locale_changeset(user, attrs, opts \\ []) do
+    user
+    |> cast(attrs, [:locale])
+    |> validate_locale(opts)
+    |> case do
+      %{changes: %{locale: _}} = changeset -> changeset
+      %{} = changeset -> add_error(changeset, :locale, "did not change")
     end
   end
 

@@ -17,6 +17,11 @@ defmodule HouseWeb.PreparePathData do
     {uri_with_substitutions, socket} = prepare_warehouse_data(uri_with_substitutions, socket, params)
     {uri_with_substitutions, socket} = prepare_product_data(uri_with_substitutions, socket, params)
 
+    if (socket.assigns && socket.assigns.current_user && Map.has_key?(socket.assigns, :current_user)) do
+      IO.puts("Setting locale to #{socket.assigns.current_user.locale}")
+      Gettext.put_locale(socket.assigns.current_user.locale)
+    end
+
     uri_splits = String.split(uri, "/") |> Enum.drop(1)
     uri_with_substitutions_splits = String.split(uri_with_substitutions, "/") |> Enum.drop(1)
     links_data = build_links_data_list(uri_splits, uri_with_substitutions_splits)

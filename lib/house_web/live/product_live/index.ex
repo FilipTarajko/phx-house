@@ -14,6 +14,7 @@ defmodule HouseWeb.ProductLive.Index do
 
   @impl true
   def mount(params, _session, socket) do
+    socket = socket |> assign(:gettext_locale, Gettext.get_locale())
     if !House.Warehouses.is_member?(params["warehouse_id"], socket.assigns.current_user.id) do
       {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
     else

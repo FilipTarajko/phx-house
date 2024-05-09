@@ -1,0 +1,118 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10||n%100>=20) ? 1 : 2);\n"
+
+#: lib/house_web/components/core_components.ex:490
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr "Akcje"
+
+#: lib/house_web/components/core_components.ex:160
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr "Próba odzyskania połączenia"
+
+#: lib/house_web/live/product_live/index.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Danger quantity"
+msgstr "Niebezpieczna liczba"
+
+#: lib/house_web/live/product_live/index.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "Delete"
+msgstr "Usuń"
+
+#: lib/house_web/live/product_live/index.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Description"
+msgstr "Opis"
+
+#: lib/house_web/live/product_live/index.html.heex:37
+#, elixir-autogen, elixir-format
+msgid "Edit"
+msgstr "Edytuj"
+
+#: lib/house_web/components/core_components.ex:151
+#, elixir-autogen, elixir-format
+msgid "Error!"
+msgstr "Błąd!"
+
+#: lib/house_web/components/core_components.ex:172
+#, elixir-autogen, elixir-format
+msgid "Hang in there while we get back on track"
+msgstr "Próba odnowienia połączenia..."
+
+#: lib/house_web/components/layouts/root.html.heex:70
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr "Zaloguj"
+
+#: lib/house_web/components/layouts/root.html.heex:53
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr "Wyloguj"
+
+#: lib/house_web/live/product_live/index.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "Name"
+msgstr "Nazwa"
+
+#: lib/house_web/live/product_live/index.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "New Product"
+msgstr "Nowy Produkt"
+
+#: lib/house_web/live/product_live/index.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "Quantity"
+msgstr "Liczba"
+
+#: lib/house_web/components/layouts/root.html.heex:62
+#, elixir-autogen, elixir-format
+msgid "Register"
+msgstr "Zarejestruj"
+
+#: lib/house_web/live/product_live/index.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Safe quantity"
+msgstr "Bezpieczna liczba"
+
+#: lib/house_web/components/layouts/root.html.heex:44
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: lib/house_web/components/core_components.ex:167
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr "Coś poszło nie tak!"
+
+#: lib/house_web/components/core_components.ex:150
+#, elixir-autogen, elixir-format
+msgid "Success!"
+msgstr "Sukces!"
+
+#: lib/house_web/components/layouts/root.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Warehouses"
+msgstr "Magazyny"
+
+#: lib/house_web/components/core_components.ex:155
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr "Brak dostępu do internetu"
+
+#: lib/house_web/components/core_components.ex:76
+#: lib/house_web/components/core_components.ex:130
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr "zamknij"

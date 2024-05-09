@@ -108,6 +108,10 @@ defmodule House.Accounts do
     User.email_changeset(user, attrs, validate_email: false)
   end
 
+  def change_user_locale(user, attrs \\ %{}) do
+    User.locale_changeset(user, attrs, [])
+  end
+
   @doc """
   Emulates that the email will change without actually changing
   it in the database.
@@ -126,6 +130,13 @@ defmodule House.Accounts do
     |> User.email_changeset(attrs)
     |> User.validate_current_password(password)
     |> Ecto.Changeset.apply_action(:update)
+  end
+
+  def apply_user_locale(user, locale) do
+    user
+    |> User.locale_changeset(%{locale: locale})
+    |> Repo.update()
+    # |> Ecto.Changeset.apply_action(:update)
   end
 
   @doc """

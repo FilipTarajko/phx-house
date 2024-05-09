@@ -10,6 +10,14 @@ defmodule HouseWeb.UserSettingsLive do
       <:subtitle>Manage your account email address and password settings</:subtitle>
     </.header>
 
+    <div class="mt-12 flex gap-2 justify-center">
+      <%= for locale <- ["en", "pl"] do %>
+        <.button phx-click="set-locale" phx-value-locale={locale}>
+          change locale to <%= locale %>
+        </.button>
+      <% end %>
+    </div>
+
     <div class="space-y-12 divide-y">
       <div>
         <.simple_form
@@ -113,6 +121,19 @@ defmodule HouseWeb.UserSettingsLive do
       |> to_form()
 
     {:noreply, assign(socket, email_form: email_form, email_form_current_password: password)}
+  end
+
+  def handle_event("set-locale", %{"locale" => locale}, socket) do
+    user = socket.assigns.current_user
+    case Accounts.apply_user_locale(user, locale) do
+      {:ok, user} ->
+        socket = put_flash(socket, :info, "Locale changed to \"#{locale}\" successfully.")
+        Gettext.put_locale(MyApp.Gettext, locale)
+        {:noreply, assign(socket, current_user: user)}
+      {:error, changeset} ->
+        socket = put_flash(socket, :error, "Failed to change locale.")
+        {:noreply, assign(socket, locale_form: to_form(changeset))}
+    end
   end
 
   def handle_event("update_email", params, socket) do

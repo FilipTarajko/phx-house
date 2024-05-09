@@ -1,0 +1,118 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new messages manually only if they're dynamic
+## messages that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here has no
+## effect: edit them in PO (.po) files instead.
+#
+msgid ""
+msgstr ""
+
+#: lib/house_web/components/core_components.ex:490
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr ""
+
+#: lib/house_web/components/core_components.ex:160
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:29
+#, elixir-autogen, elixir-format
+msgid "Danger quantity"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "Delete"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Description"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:37
+#, elixir-autogen, elixir-format
+msgid "Edit"
+msgstr ""
+
+#: lib/house_web/components/core_components.ex:151
+#, elixir-autogen, elixir-format
+msgid "Error!"
+msgstr ""
+
+#: lib/house_web/components/core_components.ex:172
+#, elixir-autogen, elixir-format
+msgid "Hang in there while we get back on track"
+msgstr ""
+
+#: lib/house_web/components/layouts/root.html.heex:70
+#, elixir-autogen, elixir-format
+msgid "Log in"
+msgstr ""
+
+#: lib/house_web/components/layouts/root.html.heex:53
+#, elixir-autogen, elixir-format
+msgid "Log out"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:15
+#, elixir-autogen, elixir-format
+msgid "Name"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "New Product"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "Quantity"
+msgstr ""
+
+#: lib/house_web/components/layouts/root.html.heex:62
+#, elixir-autogen, elixir-format
+msgid "Register"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Safe quantity"
+msgstr ""
+
+#: lib/house_web/components/layouts/root.html.heex:44
+#, elixir-autogen, elixir-format
+msgid "Settings"
+msgstr ""
+
+#: lib/house_web/components/core_components.ex:167
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr ""
+
+#: lib/house_web/components/core_components.ex:150
+#, elixir-autogen, elixir-format
+msgid "Success!"
+msgstr ""
+
+#: lib/house_web/components/layouts/root.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Warehouses"
+msgstr ""
+
+#: lib/house_web/components/core_components.ex:155
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr ""
+
+#: lib/house_web/components/core_components.ex:76
+#: lib/house_web/components/core_components.ex:130
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr ""
