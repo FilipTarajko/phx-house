@@ -9,7 +9,9 @@ defmodule HouseWeb.WarehouseLive.FormComponent do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage warehouse records in your database.</:subtitle>
+        <:subtitle>
+          <%= gettext("Use this form to manage warehouse records in your database.") %>
+        </:subtitle>
       </.header>
 
       <.simple_form
@@ -21,7 +23,7 @@ defmodule HouseWeb.WarehouseLive.FormComponent do
       >
         <.input field={@form[:name]} type="text" label="Name" />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Warehouse</.button>
+          <.button phx-disable-with="Saving..."><%= gettext("Save Warehouse") %></.button>
         </:actions>
       </.simple_form>
     </div>

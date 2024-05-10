@@ -20,13 +20,13 @@ defmodule HouseWeb.WarehouseLive.Index do
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Warehouse")
+    |> assign(:page_title, gettext("New Warehouse"))
     |> assign(:warehouse, %Warehouse{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Warehouses")
+    |> assign(:page_title, gettext("Listing Warehouses"))
     |> assign(:warehouse, nil)
   end
 

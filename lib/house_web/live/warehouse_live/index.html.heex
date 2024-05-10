@@ -1,8 +1,8 @@
 <.header>
-  Listing Warehouses
+  <%= gettext("Listing Warehouses") %>
   <:actions>
     <.link patch={~p"/warehouses/new"}>
-      <.button>New Warehouse</.button>
+      <.button><%= gettext("New Warehouse")%></.button>
     </.link>
   </:actions>
 </.header>
@@ -12,9 +12,9 @@
   rows={@streams.warehouses}
   row_click={fn {_id, warehouse} -> JS.navigate(~p"/warehouses/#{warehouse}") end}
 >
-  <:col :let={{_id, warehouse}} label="Name"><%= warehouse.name %></:col>
+  <:col :let={{_id, warehouse}} label={gettext("Name")}><%= warehouse.name %></:col>
   <:action :let={{_id, warehouse}}>
-      <.link navigate={~p"/warehouses/#{warehouse}"}>Show</.link>
+      <.link navigate={~p"/warehouses/#{warehouse}"}><%= gettext("Show")%></.link>
   </:action>
 </.table>
 

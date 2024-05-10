@@ -1,24 +1,24 @@
 <.header>
-  Warehouse <%= @warehouse.name %>
-  <:subtitle>
+  <%= gettext("Warehouse") %> <%= @warehouse.name %>
+  <%!-- <:subtitle>
     <%= "Your id: #{@current_user.id}," %>
     <%= "owner: #{@is_owner}," %>
     <%= "admin: #{@is_admin}," %>
     <%= "member: #{@is_member}" %>
-  </:subtitle>
+  </:subtitle> --%>
   <:actions>
     <%= if @warehouse.owner_id == @current_user.id do %>
       <.link patch={~p"/warehouses/#{@warehouse}/show/edit"} phx-click={JS.push_focus()}>
         <.button
           color={if !@is_owner, do: "orange", else: "primary"}
-        >Edit warehouse</.button>
+        ><%= gettext("Edit warehouse") %></.button>
       </.link>
       <.link
         phx-click={JS.push("delete", value: %{warehouse_id: @warehouse.id})}
         data-confirm="Are you sure?"
       >
         <.button color="danger">
-          Delete
+          <%= gettext("Delete") %>
         </.button>
       </.link>
     <% end %>
@@ -26,9 +26,9 @@
 </.header>
 
 <.list>
-  <:item title="Name"><%= @warehouse.name %></:item>
-  <:item title="Owner"><%= @warehouse.owner.email %></:item>
-  <:item title="Members">
+  <:item title={gettext "Name"}><%= @warehouse.name %></:item>
+  <:item title={gettext "Owner"}><%= @warehouse.owner.email %></:item>
+  <:item title={gettext "Members"}>
     <table>
       <tbody id="members" phx-update="stream">
         <tr
@@ -50,9 +50,9 @@
               <.button class="w-16" phx-click="kick" phx-value-member_id={member.id}
                color={if member.user.id == @current_user.id, do: "danger", else: "orange"}>
                 <%= if member.user.id == @current_user.id do %>
-                  leave
+                  <%= gettext("leave") %>
                 <% else %>
-                  kick
+                  <%= gettext("kick") %>
                 <% end %>
               </.button>
             </td>
@@ -68,11 +68,11 @@
                     </.button> --%>
                   <% {_, true} -> %>
                     <.button phx-click="demote" phx-value-member_id={member.id} class="w-20" color="warning">
-                        demote
+                        <%= gettext("demote")%>
                     </.button>
                   <% {_, false} -> %>
                     <.button phx-click="promote" phx-value-member_id={member.id} class="w-20" color="success">
-                        promote
+                        <%= gettext("promote")%>
                     </.button>
                 <% end %>
             </td>
@@ -82,7 +82,7 @@
           <td class="pl-2 pr-2">
             <%= if @is_owner && member.user_id != @warehouse.owner.id do %>
               <.button phx-click="transfer_warehouse" phx-value-member_id={member.id} color="orange">
-                transfer
+                <%= gettext("transfer") %>
               </.button>
             <% end %>
           </td>
@@ -95,7 +95,7 @@
 <%= if @is_admin do %>
   <.form for={@invitation_form} phx-change="validate_invitation" phx-submit="save_invitation" class="mt-12 flex flex-row items-end gap-2">
     <.input name="email" type="email" field={@invitation_form[:email]} value="" label="Email" />
-    <.button phx-disable-with="Saving..." color="success">Add member</.button>
+    <.button phx-disable-with="Saving..." color="success"><%= gettext("Add member") %></.button>
   </.form>
 <% end %>
 
@@ -104,10 +104,10 @@
     class="mt-20 text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
     navigate={"#{@warehouse.id}/products"}
     >
-      Products of warehouse <%= @warehouse.name %>
+      <%= gettext("Products of warehouse") %> <%= @warehouse.name %>
   </.link>
 </div>
-<.back navigate={~p"/warehouses"}>Back to warehouses</.back>
+<.back navigate={~p"/warehouses"}><%= gettext("Back to warehouses") %></.back>
 
 <.modal :if={@live_action == :edit} id="warehouse-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouse}")}>
   <.live_component

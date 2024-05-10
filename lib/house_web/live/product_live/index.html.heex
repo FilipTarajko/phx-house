@@ -1,12 +1,11 @@
 <.header>
-  Products (in <%= @warehouse.name %>)
+  <%= gettext("Products") %> (<%= gettext("in") %> <%= @warehouse.name %>)
   <:actions>
     <.link patch={~p"/warehouses/#{@warehouse.id}/products/new"}>
       <.button><%= gettext("New Product")%></.button>
     </.link>
   </:actions>
 </.header>
-<%= @gettext_locale %>
 <%!-- row_click={fn {_id, product} -> JS.navigate(~p"/warehouses/#{@warehouse_id}/products/#{product}") end} --%>
 <.table
   id="products"
@@ -47,7 +46,7 @@
   </:action>
 </.table>
 
-<.back navigate={~p"/warehouses/#{@warehouse.id}"}>Back to warehouse (<%= @warehouse.name %>)</.back>
+<.back navigate={~p"/warehouses/#{@warehouse.id}"}><%= gettext "Back to warehouse" %> (<%= @warehouse.name %>)</.back>
 
 <.modal :if={@live_action in [:new, :edit]} id="product-modal" show on_cancel={JS.patch(~p"/warehouses/#{@warehouse.id}/products")}>
   <.live_component

@@ -6,14 +6,14 @@ defmodule HouseWeb.UserSettingsLive do
   def render(assigns) do
     ~H"""
     <.header class="text-center">
-      Account Settings
-      <:subtitle>Manage your account email address and password settings</:subtitle>
+      <%= gettext "Account Settings" %>
+      <:subtitle><%= gettext "Manage your account email address and password settings" %></:subtitle>
     </.header>
 
     <div class="mt-12 flex gap-2 justify-center">
       <%= for locale <- ["en", "pl"] do %>
         <.button phx-click="set-locale" phx-value-locale={locale}>
-          change locale to <%= locale %>
+          <%= gettext "change locale to" %> <%= locale %>
         </.button>
       <% end %>
     </div>
@@ -37,7 +37,7 @@ defmodule HouseWeb.UserSettingsLive do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Email</.button>
+            <.button phx-disable-with="Changing..."><%= gettext "Change Email" %></.button>
           </:actions>
         </.simple_form>
       </div>
@@ -73,7 +73,7 @@ defmodule HouseWeb.UserSettingsLive do
             required
           />
           <:actions>
-            <.button phx-disable-with="Changing...">Change Password</.button>
+            <.button phx-disable-with="Changing..."><%= gettext "Change Password" %></.button>
           </:actions>
         </.simple_form>
       </div>

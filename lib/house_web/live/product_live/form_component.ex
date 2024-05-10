@@ -9,7 +9,9 @@ defmodule HouseWeb.ProductLive.FormComponent do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage product records in your database.</:subtitle>
+        <:subtitle>
+          <%= gettext("Use this form to manage product records in your database.") %>
+        </:subtitle>
       </.header>
 
       <.simple_form
@@ -19,13 +21,13 @@ defmodule HouseWeb.ProductLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:quantity]} type="number" label="Quantity" />
-        <.input field={@form[:danger_quantity]} type="number" label="Danger quantity" />
-        <.input field={@form[:safe_quantity]} type="number" label="Safe quantity" />
-        <.input field={@form[:description]} type="text" label="Description" />
+        <.input field={@form[:name]} type="text" label={gettext "Name"} />
+        <.input field={@form[:quantity]} type="number" label={gettext "Quantity"} />
+        <.input field={@form[:danger_quantity]} type="number" label={gettext "Danger quantity" } />
+        <.input field={@form[:safe_quantity]} type="number" label={gettext  "Safe quantity" } />
+        <.input field={@form[:description]} type="text" label={gettext "Description" } />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Product</.button>
+          <.button phx-disable-with="Saving..."><%= gettext("Save Product") %></.button>
         </:actions>
       </.simple_form>
     </div>

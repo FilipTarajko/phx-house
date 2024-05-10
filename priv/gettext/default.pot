@@ -21,22 +21,25 @@ msgstr ""
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/house_web/live/product_live/index.html.heex:29
+#: lib/house_web/live/product_live/form_component.ex:26
+#: lib/house_web/live/product_live/index.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Danger quantity"
 msgstr ""
 
-#: lib/house_web/live/product_live/index.html.heex:45
+#: lib/house_web/live/product_live/index.html.heex:44
+#: lib/house_web/live/warehouse_live/show.html.heex:21
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr ""
 
-#: lib/house_web/live/product_live/index.html.heex:31
+#: lib/house_web/live/product_live/form_component.ex:28
+#: lib/house_web/live/product_live/index.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Description"
 msgstr ""
 
-#: lib/house_web/live/product_live/index.html.heex:37
+#: lib/house_web/live/product_live/index.html.heex:36
 #, elixir-autogen, elixir-format
 msgid "Edit"
 msgstr ""
@@ -61,7 +64,10 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: lib/house_web/live/product_live/index.html.heex:15
+#: lib/house_web/live/product_live/form_component.ex:24
+#: lib/house_web/live/product_live/index.html.heex:14
+#: lib/house_web/live/warehouse_live/index.html.heex:15
+#: lib/house_web/live/warehouse_live/show.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr ""
@@ -71,7 +77,8 @@ msgstr ""
 msgid "New Product"
 msgstr ""
 
-#: lib/house_web/live/product_live/index.html.heex:20
+#: lib/house_web/live/product_live/form_component.ex:25
+#: lib/house_web/live/product_live/index.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "Quantity"
 msgstr ""
@@ -81,7 +88,8 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: lib/house_web/live/product_live/index.html.heex:30
+#: lib/house_web/live/product_live/form_component.ex:27
+#: lib/house_web/live/product_live/index.html.heex:29
 #, elixir-autogen, elixir-format
 msgid "Safe quantity"
 msgstr ""
@@ -115,4 +123,197 @@ msgstr ""
 #: lib/house_web/components/core_components.ex:130
 #, elixir-autogen, elixir-format
 msgid "close"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/index.ex:29
+#: lib/house_web/live/warehouse_live/index.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Listing Warehouses"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/index.ex:23
+#: lib/house_web/live/warehouse_live/index.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "New Warehouse"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Products"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "in"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/index.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Show"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:98
+#, elixir-autogen, elixir-format
+msgid "Add member"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:110
+#, elixir-autogen, elixir-format
+msgid "Back to warehouses"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Edit warehouse"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:107
+#, elixir-autogen, elixir-format
+msgid "Products of warehouse"
+msgstr ""
+
+#: lib/house_web/live/product_live/form_component.ex:30
+#, elixir-autogen, elixir-format
+msgid "Save Product"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/form_component.ex:26
+#, elixir-autogen, elixir-format
+msgid "Save Warehouse"
+msgstr ""
+
+#: lib/house_web/live/product_live/form_component.ex:13
+#, elixir-autogen, elixir-format
+msgid "Use this form to manage product records in your database."
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/form_component.ex:13
+#, elixir-autogen, elixir-format
+msgid "Use this form to manage warehouse records in your database."
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "Warehouse"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:71
+#, elixir-autogen, elixir-format
+msgid "demote"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:55
+#, elixir-autogen, elixir-format
+msgid "kick"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:53
+#, elixir-autogen, elixir-format
+msgid "leave"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:75
+#, elixir-autogen, elixir-format
+msgid "promote"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:85
+#, elixir-autogen, elixir-format
+msgid "transfer"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.html.heex:49
+#, elixir-autogen, elixir-format
+msgid "Back to warehouse"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:31
+#, elixir-autogen, elixir-format
+msgid "Members"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.html.heex:30
+#, elixir-autogen, elixir-format
+msgid "Owner"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:9
+#, elixir-autogen, elixir-format
+msgid "Account Settings"
+msgstr ""
+
+#: lib/house_web/live/user_registration_live.ex:13
+#, elixir-autogen, elixir-format
+msgid "Already registered?"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:40
+#, elixir-autogen, elixir-format
+msgid "Change Email"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:76
+#, elixir-autogen, elixir-format
+msgid "Change Password"
+msgstr ""
+
+#: lib/house_web/live/user_registration_live.ex:39
+#, elixir-autogen, elixir-format
+msgid "Create an account"
+msgstr ""
+
+#: lib/house_web/live/user_login_live.ex:10
+#, elixir-autogen, elixir-format
+msgid "Don't have an account?"
+msgstr ""
+
+#: lib/house_web/live/user_login_live.ex:25
+#, elixir-autogen, elixir-format
+msgid "Forgot your password?"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:10
+#, elixir-autogen, elixir-format
+msgid "Manage your account email address and password settings"
+msgstr ""
+
+#: lib/house_web/live/user_registration_live.ex:31
+#, elixir-autogen, elixir-format
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr ""
+
+#: lib/house_web/live/user_registration_live.ex:11
+#, elixir-autogen, elixir-format
+msgid "Register for an account"
+msgstr ""
+
+#: lib/house_web/live/user_login_live.ex:30
+#: lib/house_web/live/user_registration_live.ex:15
+#, elixir-autogen, elixir-format
+msgid "Sign in"
+msgstr ""
+
+#: lib/house_web/live/user_login_live.ex:8
+#, elixir-autogen, elixir-format
+msgid "Sign in to account"
+msgstr ""
+
+#: lib/house_web/live/user_login_live.ex:12
+#, elixir-autogen, elixir-format
+msgid "Sign up"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:16
+#, elixir-autogen, elixir-format
+msgid "change locale to"
+msgstr ""
+
+#: lib/house_web/live/user_login_live.ex:14
+#, elixir-autogen, elixir-format
+msgid "for an account now."
+msgstr ""
+
+#: lib/house_web/live/user_registration_live.ex:17
+#, elixir-autogen, elixir-format
+msgid "to your account now."
 msgstr ""
