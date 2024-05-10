@@ -1,4 +1,6 @@
 defmodule HouseWeb.PreparePathData do
+  require HouseWeb.Gettext
+
   def on_mount(:prepare_path_data, _params, _session, socket) do
     {:cont,
       Phoenix.LiveView.attach_hook(
@@ -14,13 +16,15 @@ defmodule HouseWeb.PreparePathData do
     uri = URI.parse(url) |> Map.get(:path)
     uri_with_substitutions = uri
 
-    {uri_with_substitutions, socket} = prepare_warehouse_data(uri_with_substitutions, socket, params)
-    {uri_with_substitutions, socket} = prepare_product_data(uri_with_substitutions, socket, params)
-
     if (socket.assigns && socket.assigns.current_user && Map.has_key?(socket.assigns, :current_user)) do
       IO.puts("Setting locale to #{socket.assigns.current_user.locale}")
       Gettext.put_locale(socket.assigns.current_user.locale)
     end
+
+    uri_with_substitutions = translate_uri_segments(uri_with_substitutions)
+
+    {uri_with_substitutions, socket} = prepare_warehouse_data(uri_with_substitutions, socket, params)
+    {uri_with_substitutions, socket} = prepare_product_data(uri_with_substitutions, socket, params)
 
     uri_splits = String.split(uri, "/") |> Enum.drop(1)
     uri_with_substitutions_splits = String.split(uri_with_substitutions, "/") |> Enum.drop(1)
@@ -43,6 +47,17 @@ defmodule HouseWeb.PreparePathData do
       [%{path: path, segment_name: elem(segment_and_substitution, 1)} | acc]
     end)
     |> Enum.reverse()
+  end
+
+  defp translate_uri_segments(uri) do
+    uri
+    |> String.replace("settings", HouseWeb.Gettext.gettext("settings"))
+    |> String.replace("users", HouseWeb.Gettext.gettext("users"))
+    |> String.replace("warehouses", HouseWeb.Gettext.gettext("warehouses"))
+    |> String.replace("products", HouseWeb.Gettext.gettext("products"))
+    |> String.replace("new", HouseWeb.Gettext.gettext("new"))
+    |> String.replace("edit", HouseWeb.Gettext.gettext("edit"))
+    |> String.replace("show", HouseWeb.Gettext.gettext("show"))
   end
 
   defp prepare_warehouse_data(uri_with_substitutions, socket, params) do

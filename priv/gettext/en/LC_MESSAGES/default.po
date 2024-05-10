@@ -317,3 +317,38 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "to your account now."
 msgstr ""
+
+#: lib/house_web/prepare_path_data.ex:59
+#, elixir-autogen, elixir-format
+msgid "edit"
+msgstr ""
+
+#: lib/house_web/prepare_path_data.ex:58
+#, elixir-autogen, elixir-format
+msgid "new"
+msgstr ""
+
+#: lib/house_web/prepare_path_data.ex:57
+#, elixir-autogen, elixir-format
+msgid "products"
+msgstr ""
+
+#: lib/house_web/prepare_path_data.ex:56
+#, elixir-autogen, elixir-format
+msgid "warehouses"
+msgstr ""
+
+#: lib/house_web/prepare_path_data.ex:60
+#, elixir-autogen, elixir-format
+msgid "show"
+msgstr ""
+
+#: lib/house_web/prepare_path_data.ex:55
+#, elixir-autogen, elixir-format
+msgid "users"
+msgstr ""
+
+#: lib/house_web/prepare_path_data.ex:54
+#, elixir-autogen, elixir-format, fuzzy
+msgid "settings"
+msgstr ""
