@@ -352,3 +352,24 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "settings"
 msgstr ""
+
+#: lib/house_web/components/layouts/root.html.heex:36
+#, elixir-autogen, elixir-format
+msgid "locale"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:64
+#, elixir-autogen, elixir-format
+msgid "Confirm new password"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:35
+#: lib/house_web/live/user_settings_live.ex:70
+#, elixir-autogen, elixir-format
+msgid "Current password"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:60
+#, elixir-autogen, elixir-format
+msgid "New password"
+msgstr ""

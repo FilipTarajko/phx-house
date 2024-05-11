@@ -33,7 +33,7 @@
         <div class="w-64"></div>
         <li class="text-[0.8125rem] leading-6 text-zinc-900">
           <%= @current_user.email %>
-          (locale:
+          (<%= gettext "locale" %>:
           <%= @current_user.locale %>)
         </li>
         <li>

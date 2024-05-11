@@ -32,7 +32,7 @@ defmodule HouseWeb.UserSettingsLive do
             name="current_password"
             id="current_password_for_email"
             type="password"
-            label="Current password"
+            label={gettext "Current password"}
             value={@email_form_current_password}
             required
           />
@@ -57,17 +57,17 @@ defmodule HouseWeb.UserSettingsLive do
             id="hidden_user_email"
             value={@current_email}
           />
-          <.input field={@password_form[:password]} type="password" label="New password" required />
+          <.input field={@password_form[:password]} type="password" label={gettext "New password"} required />
           <.input
             field={@password_form[:password_confirmation]}
             type="password"
-            label="Confirm new password"
+            label={gettext "Confirm new password"}
           />
           <.input
             field={@password_form[:current_password]}
             name="current_password"
             type="password"
-            label="Current password"
+            label={gettext "Current password"}
             id="current_password_for_password"
             value={@current_password}
             required
