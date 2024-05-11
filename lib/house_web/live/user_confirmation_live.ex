@@ -35,7 +35,7 @@ defmodule HouseWeb.UserConfirmationLive do
       {:ok, _} ->
         {:noreply,
          socket
-         |> put_flash(:info, "User confirmed successfully.")
+         |> put_flash(:info, gettext "User confirmed successfully.")
          |> redirect(to: ~p"/")}
 
       :error ->
@@ -50,7 +50,7 @@ defmodule HouseWeb.UserConfirmationLive do
           %{} ->
             {:noreply,
              socket
-             |> put_flash(:error, "User confirmation link is invalid or it has expired.")
+             |> put_flash(:error, gettext "User confirmation link is invalid or it has expired.")
              |> redirect(to: ~p"/")}
         end
     end

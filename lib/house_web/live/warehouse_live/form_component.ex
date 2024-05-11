@@ -64,7 +64,7 @@ defmodule HouseWeb.WarehouseLive.FormComponent do
 
           {:noreply,
             socket
-            |> put_flash(:info, "Warehouse updated successfully")
+            |> put_flash(:info, gettext "Warehouse updated successfully")
             |> push_patch(to: socket.assigns.patch)}
 
         {:error, %Ecto.Changeset{} = changeset} ->
@@ -83,7 +83,7 @@ defmodule HouseWeb.WarehouseLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Warehouse created successfully")
+         |> put_flash(:info, gettext "Warehouse created successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->

@@ -85,10 +85,10 @@ defmodule HouseWeb.UserSettingsLive do
     socket =
       case Accounts.update_user_email(socket.assigns.current_user, token) do
         :ok ->
-          put_flash(socket, :info, "Email changed successfully.")
+          put_flash(socket, :info, gettext "Email changed successfully.")
 
         :error ->
-          put_flash(socket, :error, "Email change link is invalid or it has expired.")
+          put_flash(socket, :error, gettext "Email change link is invalid or it has expired.")
       end
 
     {:ok, push_navigate(socket, to: ~p"/users/settings")}
@@ -127,11 +127,12 @@ defmodule HouseWeb.UserSettingsLive do
     user = socket.assigns.current_user
     case Accounts.apply_user_locale(user, locale) do
       {:ok, user} ->
-        socket = put_flash(socket, :info, "Locale changed to \"#{locale}\" successfully.")
+        # TODO
+        socket = put_flash(socket, :info, (gettext "Locale changed to ") <> locale <> (gettext " successfully."))
         Gettext.put_locale(MyApp.Gettext, locale)
         {:noreply, assign(socket, current_user: user)}
       {:error, changeset} ->
-        socket = put_flash(socket, :error, "Failed to change locale.")
+        socket = put_flash(socket, :error, gettext "Failed to change locale.")
         {:noreply, assign(socket, locale_form: to_form(changeset))}
     end
   end
@@ -148,7 +149,7 @@ defmodule HouseWeb.UserSettingsLive do
           &url(~p"/users/settings/confirm_email/#{&1}")
         )
 
-        info = "A link to confirm your email change has been sent to the new address."
+        info = gettext "A link to confirm your email change has been sent to the new address."
         {:noreply, socket |> put_flash(:info, info) |> assign(email_form_current_password: nil)}
 
       {:error, changeset} ->

@@ -7,7 +7,7 @@ defmodule HouseWeb.WarehouseLive.Show do
   @impl true
   def mount(params, _session, socket) do
     if !House.Warehouses.is_member?(params["warehouse_id"], socket.assigns.current_user.id) do
-      {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
+      {:ok, socket |> put_flash(:error, gettext "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
     else
       members = Warehouses.list_members(params["warehouse_id"])
       |> Enum.sort_by(&(&1.user.email))
@@ -42,7 +42,7 @@ defmodule HouseWeb.WarehouseLive.Show do
   def handle_info(%{deleted_member: member}, socket) do
     if member.user_id == socket.assigns.current_user.id do
       socket = socket
-        |> put_flash(:error, "You have been removed from the warehouse")
+        |> put_flash(:error, gettext "You have been removed from the warehouse")
         |> redirect(to: "/warehouses")
         {:noreply, stream_delete(socket, :members, member)}
     else
@@ -55,7 +55,7 @@ defmodule HouseWeb.WarehouseLive.Show do
   def handle_info(:deleted_warehouse, socket) do
     {:noreply,
      socket
-     |> put_flash(:info, "Warehouse deleted")
+     |> put_flash(:info, gettext "Warehouse deleted")
      |> redirect(to: "/warehouses")}
   end
 
@@ -88,10 +88,10 @@ defmodule HouseWeb.WarehouseLive.Show do
         {:noreply, socket}
 
       !user ->
-        {:noreply, socket |> put_flash(:error, "User not found")}
+        {:noreply, socket |> put_flash(:error, gettext "User not found")}
 
       Warehouses.is_member?(socket.assigns.warehouse.id, user.id) ->
-        {:noreply, socket |> put_flash(:error, "User is already a member")}
+        {:noreply, socket |> put_flash(:error, gettext "User is already a member")}
 
       true ->
         {:ok, member} = Warehouses.create_member(%{user_id: user.id, warehouse_id: socket.assigns.warehouse.id, is_admin: false})
@@ -128,14 +128,14 @@ defmodule HouseWeb.WarehouseLive.Show do
         if message == :warehouse_deleted do
           {:noreply,
            socket
-           |> put_flash(:info, "You were the only member - warehouse deleted")
+           |> put_flash(:info, gettext "You were the only member - warehouse deleted")
            |> redirect(to: "/warehouses")}
         else
           if member.user_id == socket.assigns.current_user.id do
             warehouse = Warehouses.get_warehouse!(socket.assigns.warehouse.id) |> House.Repo.preload(:owner)
             {:noreply,
               socket
-              |> put_flash(:info, "You have left the warehouse, the new owner is #{warehouse.owner.email}")
+              |> put_flash(:info, (gettext "You have left the warehouse, the new owner is ") <> warehouse.owner.email)
               |> redirect(to: "/warehouses")
             }
           else
@@ -157,7 +157,7 @@ defmodule HouseWeb.WarehouseLive.Show do
       true ->
         {:ok, _} = Warehouses.transfer_warehouse(warehouse, new_owner_member)
         socket = socket
-          |> put_flash(:info, "Warehouse transferred to #{new_owner_member.user.email}")
+          |> put_flash(:info, (gettext "Warehouse transferred to ") <> new_owner_member.user.email)
       {:noreply, socket}
     end
   end
@@ -170,7 +170,7 @@ defmodule HouseWeb.WarehouseLive.Show do
       {:ok, _} = Warehouses.delete_warehouse(warehouse)
       {:noreply,
        socket
-       |> put_flash(:info, "Warehouse deleted")
+       |> put_flash(:info, gettext "Warehouse deleted")
        |> redirect(to: "/warehouses")
       }
     end

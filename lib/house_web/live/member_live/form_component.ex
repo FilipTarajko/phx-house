@@ -59,7 +59,7 @@ defmodule HouseWeb.MemberLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Member updated successfully")
+         |> put_flash(:info, gettext "Member updated successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -74,7 +74,7 @@ defmodule HouseWeb.MemberLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Member created successfully")
+         |> put_flash(:info, gettext "Member created successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->

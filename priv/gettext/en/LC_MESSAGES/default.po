@@ -54,12 +54,12 @@ msgstr ""
 msgid "Hang in there while we get back on track"
 msgstr ""
 
-#: lib/house_web/components/layouts/root.html.heex:70
+#: lib/house_web/components/layouts/root.html.heex:65
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
 
-#: lib/house_web/components/layouts/root.html.heex:53
+#: lib/house_web/components/layouts/root.html.heex:50
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr ""
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: lib/house_web/components/layouts/root.html.heex:62
+#: lib/house_web/components/layouts/root.html.heex:59
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Safe quantity"
 msgstr ""
 
-#: lib/house_web/components/layouts/root.html.heex:44
+#: lib/house_web/components/layouts/root.html.heex:43
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr ""
@@ -109,7 +109,7 @@ msgstr ""
 msgid "Success!"
 msgstr ""
 
-#: lib/house_web/components/layouts/root.html.heex:30
+#: lib/house_web/components/layouts/root.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Warehouses"
 msgstr ""
@@ -353,7 +353,7 @@ msgstr ""
 msgid "settings"
 msgstr ""
 
-#: lib/house_web/components/layouts/root.html.heex:36
+#: lib/house_web/components/layouts/root.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "locale"
 msgstr ""
@@ -372,4 +372,153 @@ msgstr ""
 #: lib/house_web/live/user_settings_live.ex:60
 #, elixir-autogen, elixir-format
 msgid "New password"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:131
+#, elixir-autogen, elixir-format
+msgid " successfully."
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:152
+#, elixir-autogen, elixir-format
+msgid "A link to confirm your email change has been sent to the new address."
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:91
+#, elixir-autogen, elixir-format
+msgid "Email change link is invalid or it has expired."
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:88
+#, elixir-autogen, elixir-format
+msgid "Email changed successfully."
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:135
+#, elixir-autogen, elixir-format
+msgid "Failed to change locale."
+msgstr ""
+
+#: lib/house_web/live/user_confirmation_instructions_live.ex:44
+#, elixir-autogen, elixir-format
+msgid "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
+msgstr ""
+
+#: lib/house_web/live/user_forgot_password_live.ex:43
+#, elixir-autogen, elixir-format
+msgid "If your email is in our system, you will receive instructions to reset your password shortly."
+msgstr ""
+
+#: lib/house_web/controllers/user_session_controller.ex:31
+#, elixir-autogen, elixir-format
+msgid "Invalid email or password"
+msgstr ""
+
+#: lib/house_web/live/user_settings_live.ex:131
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Locale changed to "
+msgstr ""
+
+#: lib/house_web/controllers/user_session_controller.ex:39
+#, elixir-autogen, elixir-format
+msgid "Logged out successfully."
+msgstr ""
+
+#: lib/house_web/live/member_live/form_component.ex:77
+#, elixir-autogen, elixir-format
+msgid "Member created successfully"
+msgstr ""
+
+#: lib/house_web/live/member_live/form_component.ex:62
+#, elixir-autogen, elixir-format
+msgid "Member updated successfully"
+msgstr ""
+
+#: lib/house_web/live/user_reset_password_live.ex:63
+#, elixir-autogen, elixir-format
+msgid "Password reset successfully."
+msgstr ""
+
+#: lib/house_web/live/product_live/form_component.ex:85
+#, elixir-autogen, elixir-format
+msgid "Product created successfully"
+msgstr ""
+
+#: lib/house_web/live/product_live/form_component.ex:68
+#, elixir-autogen, elixir-format
+msgid "Product updated successfully"
+msgstr ""
+
+#: lib/house_web/live/user_reset_password_live.ex:81
+#, elixir-autogen, elixir-format
+msgid "Reset password link is invalid or it has expired."
+msgstr ""
+
+#: lib/house_web/live/user_confirmation_live.ex:53
+#, elixir-autogen, elixir-format
+msgid "User confirmation link is invalid or it has expired."
+msgstr ""
+
+#: lib/house_web/live/user_confirmation_live.ex:38
+#, elixir-autogen, elixir-format
+msgid "User confirmed successfully."
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.ex:94
+#, elixir-autogen, elixir-format
+msgid "User is already a member"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.ex:91
+#, elixir-autogen, elixir-format
+msgid "User not found"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/form_component.ex:86
+#, elixir-autogen, elixir-format
+msgid "Warehouse created successfully"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.ex:58
+#: lib/house_web/live/warehouse_live/show.ex:173
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Warehouse deleted"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.ex:160
+#, elixir-autogen, elixir-format
+msgid "Warehouse transferred to "
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/form_component.ex:67
+#, elixir-autogen, elixir-format
+msgid "Warehouse updated successfully"
+msgstr ""
+
+#: lib/house_web/live/product_live/index.ex:19
+#: lib/house_web/live/product_live/show.ex:7
+#: lib/house_web/live/warehouse_live/show.ex:10
+#, elixir-autogen, elixir-format
+msgid "You are not a member of this warehouse"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.ex:45
+#, elixir-autogen, elixir-format
+msgid "You have been removed from the warehouse"
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.ex:138
+#, elixir-autogen, elixir-format
+msgid "You have left the warehouse, the new owner is "
+msgstr ""
+
+#: lib/house_web/user_auth.ex:160
+#: lib/house_web/user_auth.ex:209
+#, elixir-autogen, elixir-format
+msgid "You must log in to access this page."
+msgstr ""
+
+#: lib/house_web/live/warehouse_live/show.ex:131
+#, elixir-autogen, elixir-format
+msgid "You were the only member - warehouse deleted"
 msgstr ""

@@ -28,7 +28,7 @@ defmodule HouseWeb.UserSessionController do
     else
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
       conn
-      |> put_flash(:error, "Invalid email or password")
+      |> put_flash(:error, gettext "Invalid email or password")
       |> put_flash(:email, String.slice(email, 0, 160))
       |> redirect(to: ~p"/users/log_in")
     end
@@ -36,7 +36,7 @@ defmodule HouseWeb.UserSessionController do
 
   def delete(conn, _params) do
     conn
-    |> put_flash(:info, "Logged out successfully.")
+    |> put_flash(:info, gettext "Logged out successfully.")
     |> UserAuth.log_out_user()
   end
 end

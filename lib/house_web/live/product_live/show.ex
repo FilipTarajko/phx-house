@@ -4,7 +4,7 @@ defmodule HouseWeb.ProductLive.Show do
   @impl true
   def mount(params, _session, socket) do
     if !House.Warehouses.is_member?(params["warehouse_id"], socket.assigns.current_user.id) do
-      {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
+      {:ok, socket |> put_flash(:error, gettext "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
     else
       {:ok, socket}
     end
@@ -18,6 +18,7 @@ defmodule HouseWeb.ProductLive.Show do
     }
   end
 
+  # TODO
   defp page_title(:show), do: "Show Product"
   defp page_title(:edit), do: "Edit Product"
 end

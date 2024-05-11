@@ -16,7 +16,7 @@ defmodule HouseWeb.ProductLive.Index do
   def mount(params, _session, socket) do
     socket = socket |> assign(:gettext_locale, Gettext.get_locale())
     if !House.Warehouses.is_member?(params["warehouse_id"], socket.assigns.current_user.id) do
-      {:ok, socket |> put_flash(:error, "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
+      {:ok, socket |> put_flash(:error, gettext "You are not a member of this warehouse") |> redirect(to: "/warehouses")}
     else
       if connected?(socket) do
         Phoenix.PubSub.subscribe(House.PubSub, "warehouse_#{params["warehouse_id"]}_products")
