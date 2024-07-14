@@ -34,7 +34,7 @@
         <tr
           id={dom_id}
           :for={{dom_id, member} <- @streams.members}
-          class={(if member.user_id == @current_user.id, do: "bg-zinc-200 ", else: "") <> "border-t border-zinc-300 h-12"}
+          class={(if member.user_id == @current_user.id, do: "bg-c200 ", else: "") <> "border-t border-zinc-300 h-12"}
         >
           <td class="pl-2">
             <%= member.user.email %>
@@ -47,7 +47,7 @@
           <%!-- leave/kick --%>
           <%= if member.user.id == @current_user.id || (@is_owner || @is_admin && !member.is_admin) do %>
             <td class="pl-4">
-              <.button class="w-16" phx-click="kick" phx-value-member_id={member.id}
+              <.button class="w-20" phx-click="kick" phx-value-member_id={member.id}
                color={if member.user.id == @current_user.id, do: "danger", else: "orange"}>
                 <%= if member.user.id == @current_user.id do %>
                   <%= gettext("leave") %>
@@ -81,7 +81,7 @@
           <%!-- transfer --%>
           <td class="pl-2 pr-2">
             <%= if @is_owner && member.user_id != @warehouse.owner.id do %>
-              <.button phx-click="transfer_warehouse" phx-value-member_id={member.id} color="orange">
+              <.button class="w-20" phx-click="transfer_warehouse" phx-value-member_id={member.id} color="orange">
                 <%= gettext("transfer") %>
               </.button>
             <% end %>
@@ -101,7 +101,7 @@
 
 <div class="mt-12">
   <.link
-    class="mt-20 text-sm font-semibold leading-6 text-zinc-900 hover:text-zinc-700"
+    class="mt-20 text-sm font-semibold leading-6 text-color hover:text-z700"
     navigate={"#{@warehouse.id}/products"}
     >
       <%= gettext("Products of warehouse") %> <%= @warehouse.name %>

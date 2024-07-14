@@ -15,7 +15,18 @@ module.exports = {
     extend: {
       colors: {
         phoenix: "#FD4F00",
-      }
+        z50: "rgb(var(--z50) / <alpha-value>)",
+        z100: "rgb(var(--z100) / <alpha-value>)",
+        z200: "rgb(var(--z200) / <alpha-value>)",
+        z300: "rgb(var(--z300) / <alpha-value>)",
+        z400: "rgb(var(--z400) / <alpha-value>)",
+        z500: "rgb(var(--z500) / <alpha-value>)",
+        z600: "rgb(var(--z600) / <alpha-value>)",
+        z700: "rgb(var(--z700) / <alpha-value>)",
+        z800: "rgb(var(--z800) / <alpha-value>)",
+        z900: "rgb(var(--z900) / <alpha-value>)",
+        z950: "rgb(var(--z950) / <alpha-value>)",
+      },
     },
   },
   plugins: [

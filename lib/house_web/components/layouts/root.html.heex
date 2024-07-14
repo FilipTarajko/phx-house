@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html lang="en" class="[scrollbar-gutter:stable] dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,26 +11,26 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="antialiased px-4">
+  <body class="antialiased px-4 page-bg dark">
     <div class="relative z-10 flex max-w-2xl mx-auto gap-4 justify-between">
       <div class="flex gap-8">
         <.link
           href={~p"/"}
-          class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+          class="text-[0.8125rem] leading-6 text-color font-semibold hover-text-color"
         >
           PhxHouse
         </.link>
         <%= if @current_user do %>
           <.link
             href={~p"/warehouses"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[0.8125rem] leading-6 text-color font-semibold hover-text-color"
           >
             <%= gettext("Warehouses") %>
           </.link>
         <% end %>
       </div>
       <%= if @current_user do %>
-        <div class="text-[0.8125rem] leading-6 text-zinc-900">
+        <div class="text-[0.8125rem] leading-6 text-color dark:text-200">
           <%= @current_user.email %>
           (<%= gettext "locale" %>:
           <%= @current_user.locale %>)
@@ -38,14 +38,14 @@
         <div class="flex gap-8">
           <.link
             href={~p"/users/settings"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[0.8125rem] leading-6 text-color font-semibold hover-text-color"
           >
             <%= gettext("Settings") %>
           </.link>
           <.link
             href={~p"/users/log_out"}
             method="delete"
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[0.8125rem] leading-6 text-color font-semibold hover-text-color"
           >
             <%= gettext("Log out") %>
           </.link>
@@ -54,13 +54,13 @@
         <div class="flex gap-8">
           <.link
             href={~p"/users/register"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[0.8125rem] leading-6 text-color font-semibold hover-text-color"
           >
             <%= gettext("Register") %>
           </.link>
           <.link
             href={~p"/users/log_in"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[0.8125rem] leading-6 text-color font-semibold hover-text-color"
           >
             <%= gettext("Log in") %>
           </.link>
