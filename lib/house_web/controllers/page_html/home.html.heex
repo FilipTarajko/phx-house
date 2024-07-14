@@ -1,5 +1,5 @@
 <.flash_group flash={@flash} />
-<div class="left-[40rem] fixed inset-y-0 right-0 z-0 hidden lg:block xl:left-[50rem]">
+<div>
   <svg
     viewBox="0 0 1480 957"
     fill="none"
@@ -38,19 +38,22 @@
     />
   </svg>
 </div>
-<div class="px-4 sm:px-6 lg:px-8 xl:px-28">
-  <div class="mx-auto max-w-xl lg:mx-0">
-    <h1 class="text-phoenix mt-10 flex items-center text-sm font-semibold leading-6">
-      running on<a class='ml-1 underline' href="https://github.com/phoenixframework/phoenix">Phoenix Framework</a>
-      <small class="bg-phoenix/5 text-[0.8125rem] ml-3 rounded-full px-2 font-medium leading-6">
-        v<%= Application.spec(:phoenix, :vsn) %>
-      </small>
-    </h1>
-    <h1 class="text-[2rem] mt-4 font-semibold leading-10 tracking-tighter text-zinc-900 text-balance">
-      PhxHouse
-    </h1>
-    <p class="mt-4 text-base leading-7 text-zinc-600">
-      Phoenix app for managing your home's resources.
-    </p>
+
+<div class="absolute left-0 h-full w-full top-0 flex justify-center">
+  <div class="bg-white px-4 flex justify-center w-full max-w-3xl">
+    <div class="w-full max-w-2xl">
+      <h1 class="text-phoenix mt-10 pt-8 flex items-center text-sm font-semibold leading-6">
+        running on<a class='ml-1 underline' href="https://github.com/phoenixframework/phoenix">Phoenix Framework</a>
+        <small class="bg-phoenix/5 text-[0.8125rem] ml-3 rounded-full px-2 font-medium leading-6">
+          v<%= Application.spec(:phoenix, :vsn) %>
+        </small>
+      </h1>
+      <h1 class="text-[2rem] mt-4 font-semibold leading-10 tracking-tighter text-zinc-900 text-balance">
+        PhxHouse
+      </h1>
+      <p class="mt-4 text-base leading-7 text-zinc-600">
+        Phoenix app for managing your home's resources.
+      </p>
+    </div>
   </div>
 </div>

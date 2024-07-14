@@ -127,7 +127,6 @@ defmodule HouseWeb.UserSettingsLive do
     user = socket.assigns.current_user
     case Accounts.apply_user_locale(user, locale) do
       {:ok, user} ->
-        # TODO
         socket = put_flash(socket, :info, (gettext "Locale changed to ") <> locale <> (gettext " successfully."))
         Gettext.put_locale(MyApp.Gettext, locale)
         {:noreply, assign(socket, current_user: user)}

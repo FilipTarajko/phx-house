@@ -18,7 +18,6 @@ defmodule HouseWeb.ProductLive.Show do
     }
   end
 
-  # TODO
   defp page_title(:show), do: "Show Product"
   defp page_title(:edit), do: "Edit Product"
 end
