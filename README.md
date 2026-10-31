@@ -9,6 +9,20 @@ features:
 - managing warehouses' products
 - live data updates without refreshing (via WebSockets or long polling)
 
+## Some useful commands
+
+```bash
+iex -S mix phx.server # runs server and attached interactive elixir
+```
+
+```bash
+mix ecto.create # creates DB
+```
+
+```bash
+mix ecto.migrate # runs migrations on the DB
+```
+
 ## Used technologies
 
 [<img align="left" width="26" height="26" alt="Phoenix" src="https://api.iconify.design/devicon:phoenix.svg" style="padding: 0 20px 16px 0"/>](https://www.phoenixframework.org "Phoenix")
