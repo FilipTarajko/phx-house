@@ -35,3 +35,6 @@ house-*.tar
 npm-debug.log
 /assets/node_modules/
 
+
+# Ignore files specific for JetBrains IDEs
+.idea/
