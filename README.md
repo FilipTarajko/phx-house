@@ -25,7 +25,7 @@ mix ecto.migrate # runs migrations on the DB
 
 ## Used technologies
 
-[<img align="left" width="26" height="26" alt="Phoenix" src="https://api.iconify.design/devicon:phoenix.svg" style="padding: 0 20px 16px 0"/>](https://www.phoenixframework.org "Phoenix")
-[<img align="left" width="26" height="26" alt="Elixir" src="https://api.iconify.design/devicon:elixir.svg" style="padding: 0 20px 16px 0"/>](https://elixir-lang.org "Elixir")
-[<img align="left" width="26" height="26" alt="TailwindCSS" src="https://api.iconify.design/devicon:tailwindcss.svg" style="padding: 0 20px 16px 0"/>](https://tailwindcss.com "TailwindCSS")
-[<img width="26" height="26" alt="Postgres" src="https://api.iconify.design/devicon:postgresql.svg" style="padding: 0 20px 16px 0"/>](https://www.postgresql.org "PostgreSQL")
+[<img align="left" width="26" height="26" alt="Phoenix" src="readmeIcons/devicons_phoenix.svg" style="padding: 0 20px 16px 0"/>](https://www.phoenixframework.org "Phoenix")
+[<img align="left" width="26" height="26" alt="Elixir" src="readmeIcons/devicons_elixir.svg" style="padding: 0 20px 16px 0"/>](https://elixir-lang.org "Elixir")
+[<img align="left" width="26" height="26" alt="TailwindCSS" src="readmeIcons/devicons_tailwindcss.svg" style="padding: 0 20px 16px 0"/>](https://tailwindcss.com "TailwindCSS")
+[<img width="26" height="26" alt="Postgres" src="readmeIcons/devicons_postgresql.svg" style="padding: 0 20px 16px 0"/>](https://www.postgresql.org "PostgreSQL")
